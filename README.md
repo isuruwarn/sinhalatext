@@ -1,0 +1,4 @@
+sinhalatext
+===========
+
+Sinhalese Text Editor
