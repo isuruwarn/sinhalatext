@@ -1,0 +1,119 @@
+
+<html>
+
+	<head>
+		<META http-equiv=Content-Type content="text/html; charset=utf-8">
+		<title>Sinhala Text Editor</title>
+		<link rel="stylesheet" type="text/css" href="res/css/editor.css">
+		<script src="res/js/editor.js"></script>
+	</head>
+	
+	<body>
+		<div id="header">Sinhala Text Editor</div>
+		<div id="suggestionsHolder" class="suggestionsHolderHidden divTransitions">
+			<div id="suggestionsDiv" class="suggestionsDiv leftTray">
+				<table class="leftTrayTable" title="Provides word suggestions as you type">
+					<caption>Suggestions</caption>
+				</table>
+			</div>
+			<div id="suggestionsToggleButton" class="leftTray suggestionsToggleButton trayToggleButton" onclick="toggleLeftTray( this, 'suggestionsHolder')" title="Suggestions">&lt;&lt;</div>
+		</div>
+		<div id="qInsertHolder" class="qInsertHolderHidden divTransitions">
+			<div id="qInsertDiv" class="qInsertDiv leftTray">
+				<table class="leftTrayTable" title="Captures lengthy words as you type, so that you won't have to type them again..">
+					<caption>Quick Insert</caption>
+				</table>
+			</div>
+			<div id="qInsertDiv" class="leftTray qInsertToggleButton trayToggleButton" onclick="toggleLeftTray( this, 'qInsertHolder')" title="Quick Insert List">&lt;&lt;</div>
+		</div>
+		<div id="mainDiv">
+			<br>
+			<div id="toolbarsDiv">
+				<div id="edit_toolbar"  align="center">
+					<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
+					<input type=button onclick="clearAll()" class="buttonText" value="Clear">
+					<select onchange="changeFontSize(this)" class="buttonText" title="Font Size">
+						<option value="12">12</option>
+						<option value="14">14</option>
+						<option value="16" selected>16</option>
+						<option value="18">18</option>
+						<option value="20">20</option>
+						<option value="22">22</option>
+						<option value="24">24</option>
+						<option value="26">26</option>
+						<option value="28">28</option>
+					</select>
+					<input type=button onclick="printPreview()" class="buttonText" value="Print Preview" title="">
+					<input type=button onclick="print()" class="buttonText" value="Print">
+					<input type=button onclick="" class="buttonText" value="Help">
+				</div>
+			</div>
+			<div id="textAreaDiv">
+				<textarea id="mainTextArea" rows="40" cols="50" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..." 
+					onkeypress="return handleKeyInput( event, this )" 
+					onkeyup="return replaceChars(this)"></textarea>
+			</div>
+		</div>
+		<div id="keyMapDiv" class="keyMapDivHidden rightTray">
+			<table class="keyMapTable">
+				<caption>Key Map</caption>
+				<tr><td>a</td><td>-</td><td title="AYANNA" class="sinhalaButton"  onclick="appendChar(97)">&#3461;</td><td width="20px">&nbsp;&nbsp;</td><td>l</td><td>-</td><td title="DANTAJA LAYANNA" class="sinhalaButton"  onclick="appendChar(108)">&#3517;</td><td width="20px">&nbsp;&nbsp;</td><td>w</td><td>-</td><td title="ALPAPRAANA DAYANNA" class="sinhalaButton"  onclick="appendChar(119)">&#3503;</td></tr>
+				<tr><td>A</td><td>-</td><td title="ANUSVARAYA" class="sinhalaButton"  onclick="appendChar(65)">&#3458;</td><td width="20px">&nbsp;&nbsp;</td><td>L</td><td>-</td><td title="MUURDHAJA LAYANNA" class="sinhalaButton"  onclick="appendChar(76)">&#3525;</td><td width="20px">&nbsp;&nbsp;</td><td>W</td><td>-</td><td title="MAHAAPRAANA DAYANNA" class="sinhalaButton"  onclick="appendChar(87)">&#3504;</td></tr>
+				<tr><td>b</td><td>-</td><td title="ALPAPRAANA BAYANNA" class="sinhalaButton"  onclick="appendChar(98)">&#3510;</td><td width="20px">&nbsp;&nbsp;</td><td>m</td><td>-</td><td title="MAYANNA" class="sinhalaButton"  onclick="appendChar(109)">&#3512;</td><td width="20px">&nbsp;&nbsp;</td><td>x</td><td>-</td><td title="TAALUJA SHAYANNA" class="sinhalaButton"  onclick="appendChar(120)">&#3521;</td></tr>
+				<tr><td>B</td><td>-</td><td title="MAHAAPRAANA BAYANNA" class="sinhalaButton"  onclick="appendChar(66)">&#3511;</td><td width="20px">&nbsp;&nbsp;</td><td>M</td><td>-</td><td title="AMBA BAYANNA" class="sinhalaButton"  onclick="appendChar(77)">&#3513;</td><td width="20px">&nbsp;&nbsp;</td><td>X</td><td>-</td><td title="MUURDHAJA SHAYANNA" class="sinhalaButton"  onclick="appendChar(88)">&#3522;</td></tr>
+				<tr><td>c</td><td>-</td><td title="ALPAPRAANA CHAYANNA" class="sinhalaButton"  onclick="appendChar(99)">&#3488;</td><td width="20px">&nbsp;&nbsp;</td><td>n</td><td>-</td><td title="DANTAJA NAYANNA" class="sinhalaButton"  onclick="appendChar(110)">&#3505;</td><td width="20px">&nbsp;&nbsp;</td><td>y</td><td>-</td><td title="YAYANNA" class="sinhalaButton"  onclick="appendChar(121)">&#3514;</td></tr>
+				<tr><td>C</td><td>-</td><td title="MAHAAPRAANA CHAYANNA" class="sinhalaButton"  onclick="appendChar(67)">&#3489;</td><td width="20px">&nbsp;&nbsp;</td><td>N</td><td>-</td><td title="MUURDHAJA NAYANNA" class="sinhalaButton"  onclick="appendChar(78)">&#3499;</td><td width="20px">&nbsp;&nbsp;</td><td>Y</td><td>-</td><td title="YANSAYA" class="sinhalaButton"  onclick="appendChar(89)">&#3530;&#8205;&#3514;</td></tr>
+				<tr><td>d</td><td>-</td><td title="ALPAPRAANA DDAYANNA" class="sinhalaButton"  onclick="appendChar(100)">&#3497;</td><td width="20px">&nbsp;&nbsp;</td><td>o</td><td>-</td><td title="OYANNA" class="sinhalaButton"  onclick="appendChar(111)">&#3476;</td><td width="20px">&nbsp;&nbsp;</td><td>z</td><td>-</td><td title="ALPAPRAANA TAYANNA" class="sinhalaButton"  onclick="appendChar(122)">&#3501;</td></tr>
+				<tr><td>D</td><td>-</td><td title="MAHAAPRAANA DDAYANNA" class="sinhalaButton"  onclick="appendChar(68)">&#3498;</td><td width="20px">&nbsp;&nbsp;</td><td>O</td><td>-</td><td title="IRUYANNA" class="sinhalaButton"  onclick="appendChar(79)">&#3469;</td><td width="20px">&nbsp;&nbsp;</td><td>Z</td><td>-</td><td title="MAHAAPRAANA TAYANNA" class="sinhalaButton"  onclick="appendChar(90)">&#3502;</td></tr>
+				<tr><td>e</td><td>-</td><td title="EYANNA" class="sinhalaButton"  onclick="appendChar(101)">&#3473;</td><td width="20px">&nbsp;&nbsp;</td><td>p</td><td>-</td><td title="ALPAPRAANA PAYANNA" class="sinhalaButton"  onclick="appendChar(112)">&#3508;</td><td width="20px">&nbsp;&nbsp;</td><td>\</td><td>-</td><td title="AELA-PILLA" class="sinhalaButton"  onclick="appendChar(92)">&#3535;</td></tr>
+				<tr><td>E</td><td>-</td><td title="VISARGAYA" class="sinhalaButton"  onclick="appendChar(69)">&#3459;</td><td width="20px">&nbsp;&nbsp;</td><td>P</td><td>-</td><td title="MAHAAPRAANA PAYANNA" class="sinhalaButton"  onclick="appendChar(80)">&#3509;</td><td width="20px">&nbsp;&nbsp;</td><td>|</td><td>-</td><td title="AL-LAKUNA" class="sinhalaButton"  onclick="appendChar(124)">&#3530;</td></tr>
+				<tr><td>f</td><td>-</td><td title="FAYANNA" class="sinhalaButton"  onclick="appendChar(102)">&#3526;</td><td width="20px">&nbsp;&nbsp;</td><td>q</td><td>-</td><td title="TAALUJA NAASIKYAYA" class="sinhalaButton"  onclick="appendChar(113)">&#3492;</td><td width="20px">&nbsp;&nbsp;</td><td>`</td><td>-</td><td title="KETTI IS-PILLA" class="sinhalaButton"  onclick="appendChar(96)">&#3538;</td></tr>
+				<tr><td>F</td><td>-</td><td title="KANTAJA NAASIKYAYA" class="sinhalaButton"  onclick="appendChar(70)">&#3486;</td><td width="20px">&nbsp;&nbsp;</td><td>Q</td><td>-</td><td title="TAALUJA SANYOOGA NAAKSIKYAYA" class="sinhalaButton"  onclick="appendChar(81)">&#3493;</td><td width="20px">&nbsp;&nbsp;</td><td>~</td><td>-</td><td title="DIGA IS-PILLA" class="sinhalaButton"  onclick="appendChar(126)">&#3539;</td></tr>
+				<tr><td>g</td><td>-</td><td title="ALPAPRAANA GAYANNA" class="sinhalaButton"  onclick="appendChar(103)">&#3484;</td><td width="20px">&nbsp;&nbsp;</td><td>r</td><td>-</td><td title="RAYANNA" class="sinhalaButton"  onclick="appendChar(114)">&#3515;</td><td width="20px">&nbsp;&nbsp;</td><td>@</td><td>-</td><td title="KOMBUVA" class="sinhalaButton"  onclick="appendChar(64)">&#3545;</td></tr>
+				<tr><td>G</td><td>-</td><td title="MAHAAPRAANA GAYANNA" class="sinhalaButton"  onclick="appendChar(71)">&#3485;</td><td width="20px">&nbsp;&nbsp;</td><td>R</td><td>-</td><td title="RAKAYANSAYA" class="sinhalaButton"  onclick="appendChar(82)">&#3530;&#8205;&#3515;</td><td width="20px">&nbsp;&nbsp;</td><td>^</td><td>-</td><td title="DIGA KOMBUVA" class="sinhalaButton"  onclick="appendChar(94)">&#3546;</td></tr>
+				<tr><td>h</td><td>-</td><td title="HAYANNA" class="sinhalaButton"  onclick="appendChar(104)">&#3524;</td><td width="20px">&nbsp;&nbsp;</td><td>s</td><td>-</td><td title="DANTAJA SAYANNA" class="sinhalaButton"  onclick="appendChar(115)">&#3523;</td><td width="20px">&nbsp;&nbsp;</td><td>_</td><td>-</td><td title="GAETTA-PILLA" class="sinhalaButton"  onclick="appendChar(95)">&#3544;</td></tr>
+				<tr><td>H</td><td>-</td><td title="SANYAKA DDAYANNA" class="sinhalaButton"  onclick="appendChar(72)">&#3500;</td><td width="20px">&nbsp;&nbsp;</td><td>S</td><td>-</td><td title="SANYAKA DAYANNA" class="sinhalaButton"  onclick="appendChar(83)">&#3507;</td><td width="20px">&nbsp;&nbsp;</td><td>[</td><td>-</td><td title="PAA-PILLA" class="sinhalaButton"  onclick="appendChar(91)">&#3540;</td></tr>
+				<tr><td>i</td><td>-</td><td title="IYANNA" class="sinhalaButton"  onclick="appendChar(105)">&#3465;</td><td width="20px">&nbsp;&nbsp;</td><td>t</td><td>-</td><td title="ALPAPRAANA TTAYANNA" class="sinhalaButton"  onclick="appendChar(116)">&#3495;</td><td width="20px">&nbsp;&nbsp;</td><td>{</td><td>-</td><td title="DIGA PAA-PILLA" class="sinhalaButton"  onclick="appendChar(123)">&#3542;</td></tr>
+				<tr><td>I</td><td>-</td><td title="IIYANNA" class="sinhalaButton"  onclick="appendChar(73)">&#3466;</td><td width="20px">&nbsp;&nbsp;</td><td>T</td><td>-</td><td title="MAHAAPRAANA TTAYANNA" class="sinhalaButton"  onclick="appendChar(84)">&#3496;</td><td width="20px">&nbsp;&nbsp;</td><td>]</td><td>-</td><td title="AEDA-PILLA" class="sinhalaButton"  onclick="appendChar(93)">&#3536;</td></tr>
+				<tr><td>j</td><td>-</td><td title="ALPAPRAANA JAYANNA" class="sinhalaButton"  onclick="appendChar(106)">&#3490;</td><td width="20px">&nbsp;&nbsp;</td><td>u</td><td>-</td><td title="UYANNA" class="sinhalaButton"  onclick="appendChar(117)">&#3467;</td><td width="20px">&nbsp;&nbsp;</td><td>}</td><td>-</td><td title="DIGA AEDA-PILLA" class="sinhalaButton"  onclick="appendChar(125)">&#3537;</td></tr>
+				<tr><td>J</td><td>-</td><td title="MAHAAPRAANA JAYANNA" class="sinhalaButton"  onclick="appendChar(74)">&#3491;</td><td width="20px">&nbsp;&nbsp;</td><td>U</td><td>-</td><td title="IRUUYANNA" class="sinhalaButton"  onclick="appendChar(85)">&#3470;</td><td width="20px">&nbsp;&nbsp;</td><td>&lt;</td><td>-</td><td title="KOMBUVA HAA AELA-PILLA" class="sinhalaButton"  onclick="appendChar(60)">&#3548;</td></tr>
+				<tr><td>k</td><td>-</td><td title="ALPAPRAANA KAYANNA" class="sinhalaButton"  onclick="appendChar(107)">&#3482;</td><td width="20px">&nbsp;&nbsp;</td><td>v</td><td>-</td><td title="VAYANNA" class="sinhalaButton"  onclick="appendChar(118)">&#3520;</td><td width="20px">&nbsp;&nbsp;</td><td>&gt;</td><td>-</td><td title="KOMBUVA HAA DIGA AELA-PILLA" class="sinhalaButton"  onclick="appendChar(62)">&#3549;</td></tr>
+				<tr><td>K</td><td>-</td><td title="MAHAAPRAANA KAYANNA" class="sinhalaButton"  onclick="appendChar(75)">&#3483;</td><td width="20px">&nbsp;&nbsp;</td><td>V</td><td>-</td><td title="SANYAKA GAYANNA" class="sinhalaButton"  onclick="appendChar(86)">&#3487;</td><td width="20px">&nbsp;&nbsp;</td><td></td><td></td><td></td></tr>
+			</table>
+			<br>
+			<table class="keyMapTable">
+				<caption>Additional Characters</caption>
+				<tr>
+					<td onclick="appendChar(1304)" class="sinhalaButton" title="KSHA">&#3482;&#3530;&#8205;&#3522;</td>
+					<td onclick="appendChar(1305)" class="sinhalaButton" title="THALUJA NASIKAYA">&#3492;</td>
+					<td onclick="appendChar(1306)" class="sinhalaButton" title="SANYOGA NASIKAYA">&#3493;</td>
+					<td onclick="appendChar(1320)" class="sinhalaButton" title="KOMBU DEKA">&#3547;</td>
+					<td onclick="appendChar(1321)" class="sinhalaButton" title="KOMBUVA HAA GAYANUKITTA">&#3550;</td>
+					<td onclick="appendChar(1322)" class="sinhalaButton" title="DIGA GAETTA-PILLA">&#3570;</td>
+					<td onclick="appendChar(1323)" class="sinhalaButton" title="GAYANUKITTA">&#3551;</td>
+					<td onclick="appendChar(1324)" class="sinhalaButton" title="DIGA GAYANUKITTA">&#3571;</td>
+				</tr>
+			</table>
+			<div id="keyMapToggleButton" class="keyMapToggleButton rightTray trayToggleButton" onclick="toggleRightTray( this, 'keyMapDiv')" title="KeyMap">&gt;&gt;</div>
+		</div>
+		
+	</body>
+	
+	<script>
+	var elTextArea = document.getElementById("mainTextArea");
+	elTextArea.style.fontSize = '16px';
+	
+	// retrieve text from previous session
+	if( typeof(Storage) !== "undefined" && localStorage.mainText && localStorage.mainText !== "" ) {
+		elTextArea.value = localStorage.mainText;
+	}
+	
+	
+	</script>
+	
+	<footer>
+		* Does not support Internet Explorer <br>
+		<br>
+	</footer>
+
+</html>
