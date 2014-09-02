@@ -14,14 +14,14 @@ div#header {
 	width: 100%;
 	height: 30px;
 	padding: 10px;
-	font-family: Helvetica Neue;
-	font-size: 26px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 24px;
 	font-weight: 900;
 	text-shadow: #808080 0px 0px 0px;
-	/*background-color: #FAFAFA;*/
-	background-color: #EFF5FB;
-	/*color: #808080;*/
-	color: #202955;
+	background-color: #FAFAFA;
+	/*background-color: #EFF5FB;*/
+	color: #808080;
+	/*color: #202955;*/
 	border-bottom: 1px solid #D4D4D4;
 	z-index: 10;
 }
@@ -76,8 +76,8 @@ div#textAreaDiv {
 
 
 .trayToggleButton {
-	font-family: Helvetica Neue;
-	font-size: 20px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 14px;
 	font-weight: bold;
 	text-shadow: #808080 0px 0px 5px;
 	color: #808080;
@@ -98,7 +98,8 @@ div#textAreaDiv {
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
 	padding: 10px;
-	background-color: #F2F2F2;
+	/*background-color: #F2F2F2;*/
+	background-color: #FFFFFF;
 }
 
 
@@ -114,7 +115,8 @@ div#textAreaDiv {
 	-moz-border-radius-bottomleft: 5px;
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
-	background-color: #F2F2F2;
+	/*background-color: #F2F2F2;*/
+	background-color: #FFFFFF;
 }
 
 
@@ -213,9 +215,9 @@ div#textAreaDiv {
 
 
 .buttonText {
-	font-family: Helvetica Neue;
-	font-size: 12px;
-	font-weight: 900;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 11px;
+	font-weight: bold;
 	padding: 6px 10px;
 	color: #202955;
 	border:1px solid #FFFFFF;
@@ -239,7 +241,7 @@ div#textAreaDiv {
 .keyMapTable {
 	width: 260px;
 	font-size: 12px;
-	font-family: Helvetica Neue;
+	font-family: "Helvetica Neue" ,"Verdana";
 	color: #202955;
 	padding: 2px;
 	border-spacing: 2px;
@@ -250,7 +252,7 @@ div#textAreaDiv {
 .leftTrayTable {
 	width: 170px;
 	font-size: 12px;
-	font-family: Helvetica Neue;
+	font-family: "Helvetica Neue" ,"Verdana";
 	color: #202955;
 	padding: 2px;
 	border-spacing: 2px;
@@ -262,15 +264,15 @@ div#textAreaDiv {
 	height: 900px;
 	width: 700px;
 	font-size: 14px;
-	font-family: Helvetica Neue;
+	font-family: "Helvetica Neue" ,"Verdana";
 	resize: none;
 }
 
 
 .sinhalaButton {
 	border:1px solid #FAFAFA;
-	font-size: 12px;
-	font-family: Helvetica Neue;
+	font-size: 14px;
+	font-family: "Helvetica Neue" ,"Verdana";
 	text-align:center;
 	border:1px solid #D4D4D4;
 	border-radius:3px;
@@ -290,8 +292,8 @@ div#textAreaDiv {
 
 
 caption {
-	font-family: Helvetica Neue;
-	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
 }
 
 
@@ -300,8 +302,8 @@ footer {
 	top: 1050px;
 	left: 260px;
 	width: 700px;
-	font-family: Helvetica Neue;
-	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
 	font-weight: bold;
 	color: #808080;;
 	text-align: center;
@@ -309,7 +311,7 @@ footer {
 }
 
 .errorMsg {
-	font-family: Helvetica Neue;
+	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 12px;
 	font-weight: bold;
 	color: red;

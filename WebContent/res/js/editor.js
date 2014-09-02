@@ -4,7 +4,6 @@
 
 
 var isFirefox = false;
-var isFirefox = false;
 
 var charMap = {
 	97:"\u0D85",
@@ -330,74 +329,6 @@ function changeFontSize( selFontSize ) {
 
 
 
-function changeFont( selFont ) {
-	var newFont = selFont.value;
-	var elTextArea = document.getElementById("mainTextArea");
-	elTextArea.style.fontFamily = newFont;
-}
-
-
-
-
-function changeColorScheme( selColorScheme ) {
-	
-	var newColorScheme = selColorScheme.value;
-	var headerDiv = document.getElementById("header");
-	var suggestionsDiv = document.getElementById("suggestionsDiv");
-	var qInsertDiv = document.getElementById("qInsertDiv");
-	var keyMapDiv = document.getElementById("keyMapDiv");
-	
-	switch( newColorScheme) {
-		
-		case 1:
-			document.body.style.backgroundColor = "";
-			headerDiv.className = "";
-			suggestionsDiv.className = "";
-			qInsertDiv.className = "";
-			keyMapDiv.className = "";
-			break;
-		
-		case 2:
-			document.body.style.backgroundColor = "";
-			headerDiv.className = "";
-			suggestionsDiv.className = "";
-			qInsertDiv.className = "";
-			keyMapDiv.className = "";
-			break;
-		
-		case 3:
-			document.body.style.backgroundColor = "";
-			headerDiv.className = "";
-			suggestionsDiv.className = "";
-			qInsertDiv.className = "";
-			keyMapDiv.className = "";
-			break;
-			
-		case 4:
-			document.body.style.backgroundColor = "";
-			headerDiv.className = "";
-			suggestionsDiv.className = "";
-			qInsertDiv.className = "";
-			keyMapDiv.className = "";
-			break;
-		
-		default:
-			document.body.style.backgroundColor = "#FFFFFF";
-			headerDiv.style.color = "#808080";
-			headerDiv.style.backgroundColor = "#FAFAFA";
-			suggestionsDiv.style.color = "#202955";
-			suggestionsDiv.style.backgroundColor = "#FFFFFF";
-			qInsertDiv.style.color = "#202955";
-			qInsertDiv.style.backgroundColor = "#FFFFFF";
-			keyMapDiv.style.color = "#202955";
-			keyMapDiv.style.backgroundColor = "#FFFFFF";
-	}
-	
-}
-
-
-
-
 function toggleRightTray( toggleBtnDiv, holderDivName ) {
 	
 	//console.log("toggleRightTray - toggleBtnDiv.innerHTML=" + toggleBtnDiv.innerHTML );
@@ -435,42 +366,60 @@ function toggleLeftTray( toggleBtnDiv, holderDivName ) {
 
 function updateQuickInserts( elTextArea ) {
 	
+	var newWords = 0;
 	var minimumLength = 5;
 	var maxWordCount = 60;
 	var insertWordsList = [];
 	var text = elTextArea.value;
-	var wordList = getAllWordsList(text);
-	var allWords = [];
+	var currentWordList = getCurrentWordsList(text);
+	var allWordsList = [];
 	
 	if( typeof(Storage) !== "undefined" ) {
-		if( localStorage.wordsListHist ) {
-			allWords = localStorage.wordsListHist.split(',');
+		if( localStorage.allWordsList ) {
+			allWordsList = localStorage.allWordsList.split(',');
 		} else {
-			localStorage.wordsListHist = "";
-			allWords = [];
+			localStorage.allWordsList = "";
+			allWordsList = [];
 		}
 	}
 	
 	// prepare unique words list
-	wordList.forEach( function(word) {
-		
-		//console.log("updateSuggestions - word=" + word );
+	currentWordList.forEach( function(word) {
 		
 		// update quick inserts list
 		var length = word.length;
-		if( length >= minimumLength && insertWordsList.indexOf(word) == -1 ) {
+		if( length >= minimumLength && insertWordsList.indexOf(word) === -1 ) {
 			insertWordsList.push(word);
 		}
 		
 		// update all words history
 		if( typeof(Storage) !== "undefined" ) {
-			if( length >= 3 && allWords.indexOf(word) == -1 ) {
-				allWords.push(word);
+			if( length >= 2 && allWordsList.indexOf(word) == -1 ) {
+				allWordsList.push(word);
+				newWords++;
 			}
 		}
 		
 	});
-	//console.log("updateQuickInserts - insertWordsList.length= " + insertWordsList.length );
+	
+	// save words history in localStorage
+	if( newWords > 0 && typeof(Storage) !== "undefined" ) {
+		
+		//console.log("updateSuggestions - allWords=" + allWords );
+		
+		// sort words by length, ascending
+		allWordsList.sort( function( a, b) {
+			if( a.length > b.length )
+				return 1;
+			if (a.length < b.length )
+				return -1;
+			return 0;
+		});
+		
+		localStorage.allWordsList = allWordsList;
+		//console.log("updateSuggestions - localStorage.wordsListHist=" + localStorage.wordsListHist );
+	}
+	
 	
 	if( insertWordsList.length > 0 ) {
 	
@@ -483,21 +432,12 @@ function updateQuickInserts( elTextArea ) {
 			return 0;
 		});
 		
-		// save words history in localStorage
-		if(typeof(Storage) !== "undefined") {
-			//console.log("updateSuggestions - allWords=" + allWords );
-			localStorage.wordsListHist = allWords;
-			//console.log("updateSuggestions - localStorage.wordsListHist=" + localStorage.wordsListHist );
-			
-		}
-		
 		var insertWordsRows = "";
-		for( var i=0; i<insertWordsList.length; i++ ) {
+		for( var i=0; i < insertWordsList.length; i++ ) {
 			if( i >= maxWordCount ) {
 				break;
 			}
 			var qInsertWord = insertWordsList[i];
-			//console.log("qInsertWord: '" + qInsertWord + "'");
 			insertWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + qInsertWord + "')\">" + qInsertWord + "</td></tr>";
 		}
 		
@@ -506,7 +446,6 @@ function updateQuickInserts( elTextArea ) {
 					"<caption>Quick Insert</caption>" +
 					insertWordsRows + 
 				"</table>";
-		
 		document.getElementById("qInsertDiv").innerHTML = insertWordsTbl;
 	}
 	
@@ -516,47 +455,61 @@ function updateQuickInserts( elTextArea ) {
 
 function updateSuggestions( text ) {
 	
-	var allWordsHist = [];
+	var allWordsList = [];
+	var suggestionsList = [];
 	var maxWordCount = 10;
-	var wordList = getAllWordsList(text);
-	var currentWord = wordList[ wordList.length - 1 ];
-	//console.log("updateSuggestions - currentWord= " + currentWord );
+	var suggestions = 0;
+	var currentWordList = getCurrentWordsList(text);
 	
-	if(typeof(Storage) !== "undefined") {
-		allWordsHist = localStorage.wordsListHist.split(',');
-	} else {
-		allWordsHist = wordList;
-	}
-	
-	var suggestedWordsRows = "";
-	for( var i=0; i<allWordsHist.length; i++ ) {
+	if( currentWordList.length > 0 ) {
 		
-		if( i >= maxWordCount ) {
-			break;
+		var currentWord = currentWordList[ currentWordList.length - 1 ];
+		var currentWordLength = currentWord.length;
+		//console.log("updateSuggestions - currentWord=" + currentWord );
+		//console.log("updateSuggestions - currentWordLength=" + currentWordLength );
+		
+		if( typeof(Storage) !== "undefined" ) {
+			if( localStorage.allWordsList ) {
+				allWordsList = localStorage.allWordsList.split(',');
+			} else {
+				allWordsList = currentWordList;
+			}
 		}
 		
-		var word = allWordsHist[i];
-		//console.log("updateSuggestions - word=" + word );
-		//console.log("updateSuggestions - word.indexOf( currentWord )= " + word.indexOf( currentWord ) );
-		
-		if( word.indexOf( currentWord ) >= 0 ) {
-			//console.log("updateSuggestions suggestedWord: '" + word + "'");
-			suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
+		var suggestedWordsRows = "";
+		for( var i=0; i < allWordsList.length; i++ ) {
+			
+			if( suggestions >= maxWordCount ) {
+				break;
+			}
+			
+			var word = allWordsList[i];
+			var wordSubstring = word.substring( 0, currentWordLength );
+			//console.log("updateSuggestions - word=" + word );
+			//console.log("updateSuggestions - wordSubstring=" + wordSubstring );
+			
+			if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord ) {
+				//console.log("updateSuggestions suggestedWord: '" + word + "'");
+				suggestionsList.push(word);
+				suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
+				suggestions++;
+			}
 		}
+		
+		var suggestionsTbl =
+				"<table class=\"leftTrayTable\" title=\"Provides word suggestions as you type\">" +
+					"<caption>Suggestions</caption>" +
+					suggestedWordsRows + 
+				"</table>";
+		
+		document.getElementById("suggestionsDiv").innerHTML = suggestionsTbl;
+	
 	}
-	
-	var suggestionsTbl =
-			"<table class=\"leftTrayTable\" title=\"Provides word suggestions as you type\">" +
-				"<caption>Suggestions</caption>" +
-				suggestedWordsRows + 
-			"</table>";
-	
-	document.getElementById("suggestionsDiv").innerHTML = suggestionsTbl;
 }
 
 
 
-function getAllWordsList( text ) {
+function getCurrentWordsList( text ) {
 	text = text.replace(/(\r\n|\n|\r)/g, ' ');
 	text = text.replace(/\./g, ' ');
 	text = text.replace(/,/g, ' ');
@@ -595,7 +548,8 @@ function appendWord( word ) {
 
 
 function clearMetaData() {
-	localStorage.wordsListHist = "";
+	localStorage.allWordsList = "";
+	alert("Browser storage cleared!");
 }
 
 
