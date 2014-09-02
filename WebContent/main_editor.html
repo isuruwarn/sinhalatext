@@ -34,8 +34,8 @@
 					<input type=button onclick="clearAll()" class="buttonText" value="Clear">
 					<select onchange="changeFontSize(this)" class="buttonText" title="Font Size">
 						<option value="12">12</option>
-						<option value="14">14</option>
-						<option value="16" selected>16</option>
+						<option value="14" selected>14</option>
+						<option value="16">16</option>
 						<option value="18">18</option>
 						<option value="20">20</option>
 						<option value="22">22</option>
@@ -43,6 +43,25 @@
 						<option value="26">26</option>
 						<option value="28">28</option>
 					</select>
+					<select onchange="changeFont(this)" class="buttonText" title="Change Font">
+						<option value="Helvetica Neue" selected>Helvetica</option>
+						<option value="Verdana, Geneva, sans-serif">Verdana</option>
+						<option value="Arial, Helvetica, sans-serif">Arial</option>
+						<option value="Tahoma, Geneva, sans-serif">Tahoma</option>
+						<option value="Times New Roman, Times, serif">Times</option>
+						<option value="Courier New, Courier, monospace">Courier</option>
+						<option value="Impact, Charcoal, sans-serif">Impact</option>
+						<option value="Comic Sans MS, cursive, sans-serif">Comic</option>
+						<option value="Lucida Console, Monaco, monospace, Courier, monospace">Lucida</option>
+					</select>
+					<select onchange="changeColorScheme(this)" class="buttonText" title="Change color scheme">
+						<option value="0" selected>Default</option>
+						<option value="1" >Scheme 1</option>
+						<option value="2" >Scheme 2</option>
+						<option value="3">Scheme 3</option>
+						<option value="4">Scheme 4</option>
+					</select>
+					<!--input type=button onclick="clearMetaData()" class="buttonText" value="Clear Metadata"-->
 					<input type=button onclick="printPreview()" class="buttonText" value="Print Preview" title="">
 					<input type=button onclick="print()" class="buttonText" value="Print">
 					<input type=button onclick="" class="buttonText" value="Help">
@@ -101,7 +120,7 @@
 	
 	<script>
 	var elTextArea = document.getElementById("mainTextArea");
-	elTextArea.style.fontSize = '16px';
+	elTextArea.style.fontSize = '14px';
 	
 	// retrieve text from previous session
 	if( typeof(Storage) !== "undefined" && localStorage.mainText && localStorage.mainText !== "" ) {

@@ -176,6 +176,8 @@ function updateText( elTextArea, newCharCode ) {
 		elTextArea.selectionStart = cursorPos + cursorDisplacement;
 		elTextArea.selectionEnd = selectionEnd + cursorDisplacement;
 		//console.log("updateText - text after append=" + text);
+		
+		updateSuggestions(text);
 	}
 	
 }
@@ -327,6 +329,75 @@ function changeFontSize( selFontSize ) {
 
 
 
+
+function changeFont( selFont ) {
+	var newFont = selFont.value;
+	var elTextArea = document.getElementById("mainTextArea");
+	elTextArea.style.fontFamily = newFont;
+}
+
+
+
+
+function changeColorScheme( selColorScheme ) {
+	
+	var newColorScheme = selColorScheme.value;
+	var headerDiv = document.getElementById("header");
+	var suggestionsDiv = document.getElementById("suggestionsDiv");
+	var qInsertDiv = document.getElementById("qInsertDiv");
+	var keyMapDiv = document.getElementById("keyMapDiv");
+	
+	switch( newColorScheme) {
+		
+		case 1:
+			document.body.style.backgroundColor = "";
+			headerDiv.className = "";
+			suggestionsDiv.className = "";
+			qInsertDiv.className = "";
+			keyMapDiv.className = "";
+			break;
+		
+		case 2:
+			document.body.style.backgroundColor = "";
+			headerDiv.className = "";
+			suggestionsDiv.className = "";
+			qInsertDiv.className = "";
+			keyMapDiv.className = "";
+			break;
+		
+		case 3:
+			document.body.style.backgroundColor = "";
+			headerDiv.className = "";
+			suggestionsDiv.className = "";
+			qInsertDiv.className = "";
+			keyMapDiv.className = "";
+			break;
+			
+		case 4:
+			document.body.style.backgroundColor = "";
+			headerDiv.className = "";
+			suggestionsDiv.className = "";
+			qInsertDiv.className = "";
+			keyMapDiv.className = "";
+			break;
+		
+		default:
+			document.body.style.backgroundColor = "#FFFFFF";
+			headerDiv.style.color = "#808080";
+			headerDiv.style.backgroundColor = "#FAFAFA";
+			suggestionsDiv.style.color = "#202955";
+			suggestionsDiv.style.backgroundColor = "#FFFFFF";
+			qInsertDiv.style.color = "#202955";
+			qInsertDiv.style.backgroundColor = "#FFFFFF";
+			keyMapDiv.style.color = "#202955";
+			keyMapDiv.style.backgroundColor = "#FFFFFF";
+	}
+	
+}
+
+
+
+
 function toggleRightTray( toggleBtnDiv, holderDivName ) {
 	
 	//console.log("toggleRightTray - toggleBtnDiv.innerHTML=" + toggleBtnDiv.innerHTML );
@@ -368,22 +439,38 @@ function updateQuickInserts( elTextArea ) {
 	var maxWordCount = 60;
 	var insertWordsList = [];
 	var text = elTextArea.value;
-	text = text.replace(/(\r\n|\n|\r)/g, ' ');
-	text = text.replace(/\./g, ' ');
-	text = text.replace(/,/g, ' ');
-	text = text.replace(/\(/g, ' ');
-	text = text.replace(/\)/g, ' ');
-	text = text.replace(/[0-9]/g, ' ');
-	var wordList = text.split(' '); // all words list 
+	var wordList = getAllWordsList(text);
+	var allWords = [];
 	
-	// unique words list
+	if( typeof(Storage) !== "undefined" ) {
+		if( localStorage.wordsListHist ) {
+			allWords = localStorage.wordsListHist.split(',');
+		} else {
+			localStorage.wordsListHist = "";
+			allWords = [];
+		}
+	}
+	
+	// prepare unique words list
 	wordList.forEach( function(word) {
+		
+		//console.log("updateSuggestions - word=" + word );
+		
+		// update quick inserts list
 		var length = word.length;
-		if( length > minimumLength && insertWordsList.indexOf(word) == -1 ) {
+		if( length >= minimumLength && insertWordsList.indexOf(word) == -1 ) {
 			insertWordsList.push(word);
 		}
+		
+		// update all words history
+		if( typeof(Storage) !== "undefined" ) {
+			if( length >= 3 && allWords.indexOf(word) == -1 ) {
+				allWords.push(word);
+			}
+		}
+		
 	});
-	//console.log("wordList.length= " + insertWordsList.length );
+	//console.log("updateQuickInserts - insertWordsList.length= " + insertWordsList.length );
 	
 	if( insertWordsList.length > 0 ) {
 	
@@ -396,10 +483,13 @@ function updateQuickInserts( elTextArea ) {
 			return 0;
 		});
 		
-		// save quick insert words history in localStorage
-		//if(typeof(Storage) !== "undefined") {
-		//	localStorage.insertWordsList = insertWordsList;
-		//}
+		// save words history in localStorage
+		if(typeof(Storage) !== "undefined") {
+			//console.log("updateSuggestions - allWords=" + allWords );
+			localStorage.wordsListHist = allWords;
+			//console.log("updateSuggestions - localStorage.wordsListHist=" + localStorage.wordsListHist );
+			
+		}
 		
 		var insertWordsRows = "";
 		for( var i=0; i<insertWordsList.length; i++ ) {
@@ -420,6 +510,60 @@ function updateQuickInserts( elTextArea ) {
 		document.getElementById("qInsertDiv").innerHTML = insertWordsTbl;
 	}
 	
+}
+
+
+
+function updateSuggestions( text ) {
+	
+	var allWordsHist = [];
+	var maxWordCount = 10;
+	var wordList = getAllWordsList(text);
+	var currentWord = wordList[ wordList.length - 1 ];
+	//console.log("updateSuggestions - currentWord= " + currentWord );
+	
+	if(typeof(Storage) !== "undefined") {
+		allWordsHist = localStorage.wordsListHist.split(',');
+	} else {
+		allWordsHist = wordList;
+	}
+	
+	var suggestedWordsRows = "";
+	for( var i=0; i<allWordsHist.length; i++ ) {
+		
+		if( i >= maxWordCount ) {
+			break;
+		}
+		
+		var word = allWordsHist[i];
+		//console.log("updateSuggestions - word=" + word );
+		//console.log("updateSuggestions - word.indexOf( currentWord )= " + word.indexOf( currentWord ) );
+		
+		if( word.indexOf( currentWord ) >= 0 ) {
+			//console.log("updateSuggestions suggestedWord: '" + word + "'");
+			suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
+		}
+	}
+	
+	var suggestionsTbl =
+			"<table class=\"leftTrayTable\" title=\"Provides word suggestions as you type\">" +
+				"<caption>Suggestions</caption>" +
+				suggestedWordsRows + 
+			"</table>";
+	
+	document.getElementById("suggestionsDiv").innerHTML = suggestionsTbl;
+}
+
+
+
+function getAllWordsList( text ) {
+	text = text.replace(/(\r\n|\n|\r)/g, ' ');
+	text = text.replace(/\./g, ' ');
+	text = text.replace(/,/g, ' ');
+	text = text.replace(/\(/g, ' ');
+	text = text.replace(/\)/g, ' ');
+	text = text.replace(/[0-9]/g, ' ');
+	return text.split(' ');
 }
 
 
@@ -447,6 +591,13 @@ function appendWord( word ) {
 	elTextArea.selectionEnd = selectionEnd + cursorDisplacement;
 	elTextArea.focus();
 }
+
+
+
+function clearMetaData() {
+	localStorage.wordsListHist = "";
+}
+
 
 
 
