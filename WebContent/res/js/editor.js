@@ -368,9 +368,9 @@ function updateAllWordsList( elTextArea ) {
 	// check for any new words (except current word being typed)
 	for( var i=0; i < currentWordList.length-1; i++ ) {
 		
-		var word = allWordsList[i];
+		var word = currentWordList[i];
 		
-		if( length >= minimumLength && allWordsList.indexOf(word) == -1 ) {
+		if( word.length >= minimumLength && allWordsList.indexOf(word) === -1 ) {
 			allWordsList.push(word);
 			newWords++;
 		}
