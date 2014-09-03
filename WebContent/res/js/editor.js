@@ -327,7 +327,6 @@ function changeFontSize( selFontSize ) {
 
 
 
-
 function toggleRightTray( toggleBtnDiv, holderDivName ) {
 	
 	//console.log("toggleRightTray - toggleBtnDiv.innerHTML=" + toggleBtnDiv.innerHTML );
@@ -341,23 +340,6 @@ function toggleRightTray( toggleBtnDiv, holderDivName ) {
 	} else {
 		holderDiv.className = holderDivName + "Hidden divTransitions rightTray";
 		toggleBtnDiv.innerHTML = "&gt;&gt;";
-	}
-}
-
-
-
-function toggleLeftTray( toggleBtnDiv, holderDivName ) {
-	
-	//console.log("toggleLeftTray - toggleBtnDiv.innerHTML=" + toggleBtnDiv.innerHTML );
-	var holderDiv = document.getElementById( holderDivName );
-	
-	if( toggleBtnDiv.innerHTML === "&lt;&lt;" ) {
-		holderDiv.className = holderDivName + "Show divTransitions";
-		toggleBtnDiv.innerHTML = "&gt;&gt;";
-		
-	} else {
-		holderDiv.className = holderDivName + "Hidden divTransitions";
-		toggleBtnDiv.innerHTML = "&lt;&lt;";
 	}
 }
 
@@ -421,60 +403,76 @@ function updateSuggestions( text ) {
 	var minimumLength = 3;
 	var suggestions = 0;
 	var currentWordList = getCurrentWordsList(text);
+	//console.log("updateSuggestions - currentWordList=" + currentWordList );
 	
 	if( currentWordList.length > 0 ) {
 		
-		var currentWord = currentWordList[ currentWordList.length - 1 ];
-		var currentWordLength = currentWord.length;
-		//console.log("updateSuggestions - currentWord=" + currentWord );
+		var currentWord = "";
+		var currentWordLength = 0;
 		
-		if( typeof(Storage) !== "undefined" ) {
-			if( localStorage.allWordsList ) {
-				allWordsList = localStorage.allWordsList.split(',');
-			} else {
-				allWordsList = currentWordList;
-			}
-		}
-		
-		var suggestedWordsRows = "";
-		for( var i=0; i < allWordsList.length; i++ ) {
-			
-			if( suggestions >= maxSuggestions ) {
+		//get current words being typed
+		for( var i=1; i < currentWordList.length; i++ ) {
+			currentWord = currentWordList[ currentWordList.length - i ];
+			currentWordLength = currentWord.length;
+			if( currentWordLength > 0 && currentWord !== ' ' ) {
 				break;
 			}
-			
-			var word = allWordsList[i];
-			var wordSubstring = word.substring( 0, currentWordLength );
-			//console.log("updateSuggestions - word=" + word );
-			//console.log("updateSuggestions - wordSubstring=" + wordSubstring );
-			
-			if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord && word.length >= minimumLength ) {
-				suggestionsList.push(word);
-				suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
-				suggestions++;
-			}
 		}
+		//console.log("updateSuggestions - currentWord='" + currentWord + "'" );
+		//console.log("updateSuggestions - currentWordLength='" + currentWordLength + "'" );
 		
-		var suggestionsTbl =
-				"<table class=\"leftTrayTable\" title=\"Provides suggestions based on previous words you have typed..\">" +
+		if( currentWordLength > 0 ) {
+		
+			if( typeof(Storage) !== "undefined" ) {
+				if( localStorage.allWordsList ) {
+					allWordsList = localStorage.allWordsList.split(',');
+				} else {
+					allWordsList = currentWordList;
+				}
+			}
+			
+			var suggestedWordsRows = "";
+			for( var i=0; i < allWordsList.length; i++ ) {
+				
+				if( suggestions >= maxSuggestions ) {
+					break;
+				}
+				
+				var word = allWordsList[i];
+				var wordSubstring = word.substring( 0, currentWordLength );
+				//console.log("updateSuggestions - word=" + word );
+				//console.log("updateSuggestions - wordSubstring=" + wordSubstring );
+				
+				if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord && word.length >= minimumLength ) {
+					suggestionsList.push(word);
+					suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
+					suggestions++;
+				}
+			}
+			
+			var suggestionsTbl =
+				"<table class=\"suggestionsTable\" title=\"Provides suggestions based on previous words you have typed..\">" +
 					"<caption>Suggestions</caption>" +
 					suggestedWordsRows + 
 				"</table>";
 		
-		document.getElementById("suggestionsDiv").innerHTML = suggestionsTbl;
+			document.getElementById("suggestionsHolder").innerHTML = suggestionsTbl;
+		
+		}
+
 	}
 }
 
 
 
 function getCurrentWordsList( text ) {
-	text = text.replace(/(\r\n|\n|\r)/g, ' ');
-	text = text.replace(/\./g, ' ');
-	text = text.replace(/,/g, ' ');
-	text = text.replace(/\(/g, ' ');
-	text = text.replace(/\)/g, ' ');
-	text = text.replace(/[0-9]/g, ' ');
-	return text.split(' ');
+	text = text.replace(/(\r\n|\n|\r)/g, ',');
+	text = text.replace(/\./g, ',');
+	text = text.replace(/\(/g, ',');
+	text = text.replace(/\)/g, ',');
+	text = text.replace(/[0-9]/g, ',');
+	text = text.replace(/ /g, ',');
+	return text.split(',');
 }
 
 

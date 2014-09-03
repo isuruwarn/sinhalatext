@@ -128,24 +128,6 @@ div#textAreaDiv {
 
 
 
-.leftTray {
-	position: absolute;
-	overflow: auto;
-	border-top: 8px solid #D4D4D4;
-	border-left: 8px solid #D4D4D4;
-	border-bottom: 8px solid #D4D4D4;
-	-webkit-border-top-left-radius: 5px;
-	-webkit-border-bottom-left-radius: 5px;
-	-moz-border-radius-topleft: 5px;
-	-moz-border-radius-bottomleft: 5px;
-	border-top-left-radius: 5px;
-	border-bottom-left-radius: 5px;
-	/*background-color: #F2F2F2;*/
-	background-color: #FFFFFF;
-}
-
-
-
 .trayToggleButton {
 	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 14px;
@@ -198,17 +180,7 @@ div#textAreaDiv {
 
 
 
-.suggestionsHolderHidden {
-	position: absolute;
-	top: 110px;
-	left: 222px;
-	width: 190px;
-	height: 300px;
-}
-
-
-
-.suggestionsHolderShow {
+.suggestionsHolder {
 	position: absolute;
 	top: 110px;
 	left: 30px;
@@ -219,31 +191,13 @@ div#textAreaDiv {
 
 
 
-.suggestionsDiv {
-	top: 0px;
-	left: 10px;
-	width: 190px;
-	height: 300px;
-}
-
-
-
-.suggestionsToggleButton {
-	top: 140px;
-	left: -17px;
-	background-color: #D4D4D4;
-}
-
-
-
-.leftTrayTable {
+.suggestionsTable {
 	width: 170px;
 	font-size: 12px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	color: #202955;
 	padding: 2px;
 	border-spacing: 2px;
-	vertical-align: middle;
 }
 
 
