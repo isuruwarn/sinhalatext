@@ -411,12 +411,15 @@ function updateSuggestions( text ) {
 		var currentWordLength = 0;
 		
 		//get current words being typed
-		for( var i=1; i < currentWordList.length; i++ ) {
+		for( var i=1; i <= currentWordList.length; i++ ) {
+			
 			currentWord = currentWordList[ currentWordList.length - i ];
 			currentWordLength = currentWord.length;
+			
 			if( currentWordLength > 0 && currentWord !== ' ' ) {
 				break;
 			}
+			
 		}
 		//console.log("updateSuggestions - currentWord='" + currentWord + "'" );
 		//console.log("updateSuggestions - currentWordLength='" + currentWordLength + "'" );
@@ -430,6 +433,7 @@ function updateSuggestions( text ) {
 					allWordsList = currentWordList;
 				}
 			}
+			//console.log("updateSuggestions - allWordsList='" + allWordsList + "'" );
 			
 			var suggestedWordsRows = "";
 			for( var i=0; i < allWordsList.length; i++ ) {
@@ -466,13 +470,13 @@ function updateSuggestions( text ) {
 
 
 function getCurrentWordsList( text ) {
-	text = text.replace(/(\r\n|\n|\r)/g, ',');
-	text = text.replace(/\./g, ',');
-	text = text.replace(/\(/g, ',');
-	text = text.replace(/\)/g, ',');
-	text = text.replace(/[0-9]/g, ',');
-	text = text.replace(/ /g, ',');
-	return text.split(',');
+	text = text.replace(/(\r\n|\n|\r)/g, ' ');
+	text = text.replace(/\./g, ' ');
+	text = text.replace(/\(/g, ' ');
+	text = text.replace(/\)/g, ' ');
+	text = text.replace(/[0-9]/g, ' ');
+	text = text.replace(/,/g, ' ');
+	return text.split(' ');
 }
 
 
