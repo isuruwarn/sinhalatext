@@ -12,24 +12,16 @@
 		<div id="header">Sinhala Text Editor</div>
 		<div id="suggestionsHolder" class="suggestionsHolderHidden divTransitions">
 			<div id="suggestionsDiv" class="suggestionsDiv leftTray">
-				<table class="leftTrayTable" title="Provides word suggestions as you type">
+				<table class="leftTrayTable" title="Provides suggestions based on previous words you have typed..">
 					<caption>Suggestions</caption>
 				</table>
 			</div>
 			<div id="suggestionsToggleButton" class="leftTray suggestionsToggleButton trayToggleButton" onclick="toggleLeftTray( this, 'suggestionsHolder')" title="Suggestions">&lt;&lt;</div>
 		</div>
-		<div id="qInsertHolder" class="qInsertHolderHidden divTransitions">
-			<div id="qInsertDiv" class="qInsertDiv leftTray">
-				<table class="leftTrayTable" title="Captures lengthy words as you type, so that you won't have to type them again..">
-					<caption>Quick Insert</caption>
-				</table>
-			</div>
-			<div id="qInsertDiv" class="leftTray qInsertToggleButton trayToggleButton" onclick="toggleLeftTray( this, 'qInsertHolder')" title="Quick Insert List">&lt;&lt;</div>
-		</div>
 		<div id="mainDiv">
 			<br>
 			<div id="toolbarsDiv">
-				<div id="edit_toolbar"  align="center">
+				<div id="edit_toolbar" align="center">
 					<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
 					<input type=button onclick="clearAll()" class="buttonText" value="Clear">
 					<select onchange="changeFontSize(this)" class="buttonText" title="Font Size">
@@ -43,10 +35,10 @@
 						<option value="26">26</option>
 						<option value="28">28</option>
 					</select>
-					<input type=button onclick="clearMetaData()" class="buttonText" value="Clear Metadata">
 					<input type=button onclick="printPreview()" class="buttonText" value="Print Preview" title="">
 					<input type=button onclick="print()" class="buttonText" value="Print">
-					<input type=button onclick="" class="buttonText" value="Help">
+					<!--input type=button onclick="clearMetaData()" class="buttonText" value="Clear Metadata">
+					<input type=button onclick="" class="buttonText" value="Help"-->
 				</div>
 			</div>
 			<div id="textAreaDiv">

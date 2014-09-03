@@ -117,7 +117,7 @@ function handleKeyInput( event, elTextArea ) {
 	//console.log("handleKeyInput - metaKey=" + metaKey + ", controlKey=" + controlKey );
 	
 	if( keyInput == 32 || keyInput == 13 ) {
-		updateQuickInserts( elTextArea );
+		updateAllWordsList( elTextArea );
 		
 	} else if( keyInput < 48 || controlKey || metaKey ) {
 		return;
@@ -226,7 +226,7 @@ function replaceChars( elTextArea ) {
 	elTextArea.selectionEnd = selectionEnd;
 	
 	// save text history in localstorage
-	if(typeof(Storage) !== "undefined") {
+	if( typeof(Storage) !== "undefined" ) {
 		localStorage.mainText = text;
 		//console.log("replaceChars - localStorage.mainText=" + localStorage.mainText );
 	}
@@ -321,7 +321,6 @@ function preparePrintPage() {
 
 function changeFontSize( selFontSize ) {
 	var newFontSize = selFontSize.value;
-	//console.log("changeFontSize - newFontSize=" + newFontSize );
 	var elTextArea = document.getElementById("mainTextArea");
 	elTextArea.style.fontSize = newFontSize + 'px';
 }
@@ -364,48 +363,39 @@ function toggleLeftTray( toggleBtnDiv, holderDivName ) {
 
 
 
-function updateQuickInserts( elTextArea ) {
+function updateAllWordsList( elTextArea ) {
 	
 	var newWords = 0;
-	var minimumLength = 5;
-	var maxWordCount = 60;
-	var insertWordsList = [];
+	var minimumLength = 2;
 	var text = elTextArea.value;
 	var currentWordList = getCurrentWordsList(text);
 	var allWordsList = [];
 	
+	// initialize all words list
 	if( typeof(Storage) !== "undefined" ) {
+		
 		if( localStorage.allWordsList ) {
 			allWordsList = localStorage.allWordsList.split(',');
+			
 		} else {
 			localStorage.allWordsList = "";
 			allWordsList = [];
 		}
 	}
 	
-	// prepare unique words list
-	currentWordList.forEach( function(word) {
+	// check for any new words (except current word being typed)
+	for( var i=0; i < currentWordList.length-1; i++ ) {
 		
-		// update quick inserts list
-		var length = word.length;
-		if( length >= minimumLength && insertWordsList.indexOf(word) === -1 ) {
-			insertWordsList.push(word);
+		var word = allWordsList[i];
+		
+		if( length >= minimumLength && allWordsList.indexOf(word) == -1 ) {
+			allWordsList.push(word);
+			newWords++;
 		}
-		
-		// update all words history
-		if( typeof(Storage) !== "undefined" ) {
-			if( length >= 2 && allWordsList.indexOf(word) == -1 ) {
-				allWordsList.push(word);
-				newWords++;
-			}
-		}
-		
-	});
+	}
 	
-	// save words history in localStorage
+	// update all words list in localStorage
 	if( newWords > 0 && typeof(Storage) !== "undefined" ) {
-		
-		//console.log("updateSuggestions - allWords=" + allWords );
 		
 		// sort words by length, ascending
 		allWordsList.sort( function( a, b) {
@@ -417,36 +407,6 @@ function updateQuickInserts( elTextArea ) {
 		});
 		
 		localStorage.allWordsList = allWordsList;
-		//console.log("updateSuggestions - localStorage.wordsListHist=" + localStorage.wordsListHist );
-	}
-	
-	
-	if( insertWordsList.length > 0 ) {
-	
-		// sort words by length, descending
-		insertWordsList.sort( function( a, b) {
-			if( a.length > b.length )
-				return -1;
-			if (a.length < b.length )
-				return 1;
-			return 0;
-		});
-		
-		var insertWordsRows = "";
-		for( var i=0; i < insertWordsList.length; i++ ) {
-			if( i >= maxWordCount ) {
-				break;
-			}
-			var qInsertWord = insertWordsList[i];
-			insertWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + qInsertWord + "')\">" + qInsertWord + "</td></tr>";
-		}
-		
-		var insertWordsTbl =
-				"<table class=\"leftTrayTable\" title=\"Captures lengthy words as you type, so that you won't have to type them again..\">" +
-					"<caption>Quick Insert</caption>" +
-					insertWordsRows + 
-				"</table>";
-		document.getElementById("qInsertDiv").innerHTML = insertWordsTbl;
 	}
 	
 }
@@ -457,7 +417,8 @@ function updateSuggestions( text ) {
 	
 	var allWordsList = [];
 	var suggestionsList = [];
-	var maxWordCount = 10;
+	var maxSuggestions = 10;
+	var minimumLength = 3;
 	var suggestions = 0;
 	var currentWordList = getCurrentWordsList(text);
 	
@@ -466,7 +427,6 @@ function updateSuggestions( text ) {
 		var currentWord = currentWordList[ currentWordList.length - 1 ];
 		var currentWordLength = currentWord.length;
 		//console.log("updateSuggestions - currentWord=" + currentWord );
-		//console.log("updateSuggestions - currentWordLength=" + currentWordLength );
 		
 		if( typeof(Storage) !== "undefined" ) {
 			if( localStorage.allWordsList ) {
@@ -479,7 +439,7 @@ function updateSuggestions( text ) {
 		var suggestedWordsRows = "";
 		for( var i=0; i < allWordsList.length; i++ ) {
 			
-			if( suggestions >= maxWordCount ) {
+			if( suggestions >= maxSuggestions ) {
 				break;
 			}
 			
@@ -488,8 +448,7 @@ function updateSuggestions( text ) {
 			//console.log("updateSuggestions - word=" + word );
 			//console.log("updateSuggestions - wordSubstring=" + wordSubstring );
 			
-			if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord ) {
-				//console.log("updateSuggestions suggestedWord: '" + word + "'");
+			if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord && word.length >= minimumLength ) {
 				suggestionsList.push(word);
 				suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
 				suggestions++;
@@ -497,13 +456,12 @@ function updateSuggestions( text ) {
 		}
 		
 		var suggestionsTbl =
-				"<table class=\"leftTrayTable\" title=\"Provides word suggestions as you type\">" +
+				"<table class=\"leftTrayTable\" title=\"Provides suggestions based on previous words you have typed..\">" +
 					"<caption>Suggestions</caption>" +
 					suggestedWordsRows + 
 				"</table>";
 		
 		document.getElementById("suggestionsDiv").innerHTML = suggestionsTbl;
-	
 	}
 }
 
@@ -551,7 +509,6 @@ function clearMetaData() {
 	localStorage.allWordsList = "";
 	alert("Browser storage cleared!");
 }
-
 
 
 

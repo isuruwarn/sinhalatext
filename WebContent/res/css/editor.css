@@ -1,10 +1,10 @@
 @CHARSET "UTF-8";
 
 body {
-	/*background-color: #FFFFFF;*/
 	/*background-color: #EFF5FB;*/
 	background-color: #FFFFFF;
 }
+
 
 
 div#header {
@@ -27,6 +27,7 @@ div#header {
 }
 
 
+
 div#mainDiv {
 	position: absolute;
 	top: 55px;
@@ -38,6 +39,7 @@ div#mainDiv {
 	border-left: 1px solid #D4D4D4;
 	border-right: 1px solid #D4D4D4;
 }
+
 
 
 div#toolbarsDiv {
@@ -56,6 +58,7 @@ div#toolbarsDiv {
 }
 
 
+
 div#textAreaDiv {
 	position: absolute;
 	top: 55px;
@@ -67,6 +70,37 @@ div#textAreaDiv {
 
 
 
+.mainTextareaSinhala {
+	height: 900px;
+	width: 700px;
+	font-size: 14px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	resize: none;
+}
+
+
+
+.buttonText {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 11px;
+	font-weight: bold;
+	padding: 6px 10px;
+	color: #202955;
+	border:1px solid #FFFFFF;
+	border-radius:3px;
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+
+
+.buttonText:hover {
+	background-color:#EFF5FB;
+	border:1px solid #81BEF7;
+}
+
+
+
 .divTransitions {
 	-webkit-transition: all 0.5s ease;
 	-moz-transition: all 0.5 ease;
@@ -74,16 +108,6 @@ div#textAreaDiv {
 	transition: all 0.5s ease;
 }
 
-
-.trayToggleButton {
-	font-family: "Helvetica Neue" ,"Verdana";
-	font-size: 14px;
-	font-weight: bold;
-	text-shadow: #808080 0px 0px 5px;
-	color: #808080;
-	background-color: #D4D4D4;
-	cursor: pointer;
-}
 
 
 .rightTray {
@@ -103,6 +127,7 @@ div#textAreaDiv {
 }
 
 
+
 .leftTray {
 	position: absolute;
 	overflow: auto;
@@ -120,6 +145,19 @@ div#textAreaDiv {
 }
 
 
+
+.trayToggleButton {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: #808080 0px 0px 5px;
+	color: #808080;
+	background-color: #D4D4D4;
+	cursor: pointer;
+}
+
+
+
 .keyMapDivHidden {
 	top: 110px;
 	left: 695px;
@@ -127,6 +165,7 @@ div#textAreaDiv {
 	height: 740px;
 	border: 8px solid #D4D4D4;
 }
+
 
 
 .keyMapDivShow {
@@ -137,6 +176,7 @@ div#textAreaDiv {
 }
 
 
+
 .keyMapToggleButton {
 	top: 370px;
 	left: 285px;
@@ -144,98 +184,6 @@ div#textAreaDiv {
 	background-color: #D4D4D4;
 }
 
-
-.suggestionsHolderHidden {
-	position: absolute;
-	top: 110px;
-	left: 222px;
-	width: 190px;
-	height: 300px;
-}
-
-
-.suggestionsHolderShow {
-	position: absolute;
-	top: 110px;
-	left: 30px;
-	width: 190px;
-	height: 300px;
-	padding: 10px;
-}
-
-
-.suggestionsDiv {
-	top: 0px;
-	left: 10px;
-	width: 190px;
-	height: 300px;
-}
-
-
-.suggestionsToggleButton {
-	top: 140px;
-	left: -17px;
-	background-color: #D4D4D4;
-}
-
-
-.qInsertHolderHidden {
-	position: absolute;
-	top: 430px;
-	left: 222px;
-	width: 190px;
-	height: 430px;
-}
-
-
-.qInsertHolderShow {
-	position: absolute;
-	top: 430px;
-	left: 30px;
-	width: 190px;
-	height: 430px;
-	padding: 10px;
-}
-
-
-.qInsertDiv {
-	top: 0px;
-	left: 10px;
-	width: 190px;
-	height: 430px;
-}
-
-
-.qInsertToggleButton {
-	top: 140px;
-	left: -17px;
-	background-color: #D4D4D4;
-}
-
-
-
-.buttonText {
-	font-family: "Helvetica Neue" ,"Verdana";
-	font-size: 11px;
-	font-weight: bold;
-	padding: 6px 10px;
-	color: #202955;
-	border:1px solid #FFFFFF;
-	border-radius:3px;
-	background-color: #FFFFFF;
-	cursor: pointer;
-}
-
-
-.buttonText:hover {
-	background-color:#EFF5FB;
-	border:1px solid #81BEF7;
-}
-
-
-.checkboxes {
-    vertical-align: middle;
-}
 
 
 .keyMapTable {
@@ -249,6 +197,45 @@ div#textAreaDiv {
 }
 
 
+
+.suggestionsHolderHidden {
+	position: absolute;
+	top: 110px;
+	left: 222px;
+	width: 190px;
+	height: 300px;
+}
+
+
+
+.suggestionsHolderShow {
+	position: absolute;
+	top: 110px;
+	left: 30px;
+	width: 190px;
+	height: 300px;
+	padding: 10px;
+}
+
+
+
+.suggestionsDiv {
+	top: 0px;
+	left: 10px;
+	width: 190px;
+	height: 300px;
+}
+
+
+
+.suggestionsToggleButton {
+	top: 140px;
+	left: -17px;
+	background-color: #D4D4D4;
+}
+
+
+
 .leftTrayTable {
 	width: 170px;
 	font-size: 12px;
@@ -259,14 +246,6 @@ div#textAreaDiv {
 	vertical-align: middle;
 }
 
-
-.mainTextareaSinhala {
-	height: 900px;
-	width: 700px;
-	font-size: 14px;
-	font-family: "Helvetica Neue" ,"Verdana";
-	resize: none;
-}
 
 
 .sinhalaButton {
@@ -284,6 +263,7 @@ div#textAreaDiv {
 }
 
 
+
 .sinhalaButton:hover {
 	background-color:#EFF5FB;
 	border:1px solid #81BEF7;
@@ -291,10 +271,12 @@ div#textAreaDiv {
 }
 
 
+
 caption {
 	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 10px;
 }
+
 
 
 footer {
@@ -310,6 +292,8 @@ footer {
 	vertical-align: middle;
 }
 
+
+
 .errorMsg {
 	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 12px;
@@ -322,4 +306,5 @@ footer {
 	padding:6px 10px;
 	text-align:center;
 }
+
 
