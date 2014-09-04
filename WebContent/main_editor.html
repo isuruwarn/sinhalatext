@@ -19,8 +19,8 @@
 					<input type=button onclick="clearAll()" class="buttonText" value="Clear">
 					<select onchange="changeFontSize(this)" class="buttonText" title="Font Size">
 						<option value="12">12</option>
-						<option value="14" selected>14</option>
-						<option value="16">16</option>
+						<option value="14">14</option>
+						<option value="16" selected>16</option>
 						<option value="18">18</option>
 						<option value="20">20</option>
 						<option value="22">22</option>
@@ -87,7 +87,7 @@
 	
 	<script>
 	var elTextArea = document.getElementById("mainTextArea");
-	elTextArea.style.fontSize = '14px';
+	elTextArea.style.fontSize = '16px';
 	
 	// retrieve text from previous session
 	if( typeof(Storage) !== "undefined" && localStorage.mainText && localStorage.mainText !== "" ) {

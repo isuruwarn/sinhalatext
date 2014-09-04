@@ -176,7 +176,7 @@ function updateText( elTextArea, newCharCode ) {
 		elTextArea.selectionEnd = selectionEnd + cursorDisplacement;
 		//console.log("updateText - text after append=" + text);
 		
-		updateSuggestions(text);
+		updateSuggestions( text, elTextArea.selectionEnd );
 	}
 	
 }
@@ -395,7 +395,7 @@ function updateAllWordsList( elTextArea ) {
 
 
 
-function updateSuggestions( text ) {
+function updateSuggestions( text, selectionEnd  ) {
 	
 	var allWordsList = [];
 	var suggestionsList = [];
@@ -410,16 +410,27 @@ function updateSuggestions( text ) {
 		var currentWord = "";
 		var currentWordLength = 0;
 		
-		//get current words being typed
-		for( var i=1; i <= currentWordList.length; i++ ) {
+		//get current word being typed
+		var textSubstring = text.substring( 0, selectionEnd + 1 );
+		textSubstring = textSubstring.replace(/(\r\n|\n|\r)/g, ' ');
+		textSubstring = textSubstring.replace(/\./g, ' ');
+		textSubstring = textSubstring.replace(/\(/g, ' ');
+		textSubstring = textSubstring.replace(/\)/g, ' ');
+		textSubstring = textSubstring.replace(/[0-9]/g, ' ');
+		textSubstring = textSubstring.replace(/,/g, ' ');
+		//console.log("updateSuggestions - textSubstring='" + textSubstring + "'" );
+		//console.log("updateSuggestions - textSubstring.length='" + textSubstring.length + "'" );
+		
+		for( var i = textSubstring.length-1; i >= 0; i-- ) {
 			
-			currentWord = currentWordList[ currentWordList.length - i ];
-			currentWordLength = currentWord.length;
+			var currentChar = textSubstring[i];
+			//console.log("updateSuggestions - currentChar='" + currentChar + "'" );
 			
-			if( currentWordLength > 0 && currentWord !== ' ' ) {
+			if( currentChar === ' ' ) {
+				currentWord = textSubstring.substring( i+1, textSubstring.length );
+				currentWordLength = currentWord.length;
 				break;
 			}
-			
 		}
 		//console.log("updateSuggestions - currentWord='" + currentWord + "'" );
 		//console.log("updateSuggestions - currentWordLength='" + currentWordLength + "'" );
