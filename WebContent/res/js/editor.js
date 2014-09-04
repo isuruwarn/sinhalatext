@@ -118,6 +118,7 @@ function handleKeyInput( event, elTextArea ) {
 	
 	if( keyInput == 32 || keyInput == 13 ) {
 		updateAllWordsList( elTextArea );
+		document.getElementById("suggestionsHolder").innerHTML = "";
 		
 	} else if( keyInput < 48 || controlKey || metaKey ) {
 		return;
@@ -419,15 +420,19 @@ function updateSuggestions( text, selectionEnd  ) {
 		textSubstring = textSubstring.replace(/[0-9]/g, ' ');
 		textSubstring = textSubstring.replace(/,/g, ' ');
 		//console.log("updateSuggestions - textSubstring='" + textSubstring + "'" );
-		//console.log("updateSuggestions - textSubstring.length='" + textSubstring.length + "'" );
 		
 		for( var i = textSubstring.length-1; i >= 0; i-- ) {
 			
 			var currentChar = textSubstring[i];
-			//console.log("updateSuggestions - currentChar='" + currentChar + "'" );
+			//console.log("updateSuggestions - textSubstring[" + i + "]='" + currentChar + "'" );
 			
 			if( currentChar === ' ' ) {
 				currentWord = textSubstring.substring( i+1, textSubstring.length );
+				currentWordLength = currentWord.length;
+				break;
+				
+			} else if ( i == 0 ) {
+				currentWord = textSubstring.substring( i, textSubstring.length );
 				currentWordLength = currentWord.length;
 				break;
 			}
@@ -460,7 +465,7 @@ function updateSuggestions( text, selectionEnd  ) {
 				
 				if( wordSubstring.indexOf( currentWord ) !== -1 && suggestionsList.indexOf(word) === -1 && word !== currentWord && word.length >= minimumLength ) {
 					suggestionsList.push(word);
-					suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendWord('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
+					suggestedWordsRows += "<tr><td class=\"sinhalaButton\" onclick=\"appendSuggestion('" + word.replace(currentWord, '') + "')\">" + word + "</td></tr>";
 					suggestions++;
 				}
 			}
@@ -492,7 +497,7 @@ function getCurrentWordsList( text ) {
 
 
 
-function appendWord( word ) {
+function appendSuggestion( word ) {
 	
 	var elTextArea = document.getElementById("mainTextArea");
 	var text = elTextArea.value;
