@@ -202,6 +202,29 @@ div#textAreaDiv {
 
 
 
+.delSuggestion {
+	position: relative;
+	left: -10;
+	top: -10px;
+	width: 5px;
+	height: 5px;
+	font-size: 10px;
+	font-weight: 900;
+	border: 1px solid #D4D4D4;
+	border-radius: 20px;
+	background-color: #FAFAFA;
+}
+
+
+
+.delSuggestion:hover {
+	border: 1px solid #81BEF7;
+	cursor: pointer;
+	background-color: #EFF5FB;
+}
+
+
+
 .sinhalaButton {
 	border:1px solid #FAFAFA;
 	font-size: 14px;
