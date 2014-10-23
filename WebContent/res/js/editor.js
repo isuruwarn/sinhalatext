@@ -2,7 +2,7 @@
  * 
  */
 
-
+var adjustCursor = false;
 var isFirefox = false;
 
 var charMap = {
@@ -132,6 +132,7 @@ function handleKeyInput( event, elTextArea ) {
 
 function updateText( elTextArea, newCharCode ) {
 	
+	
 	var newChar = charMap[ newCharCode ];
 	//console.log("updateText - newCharCode=" + newCharCode );
 	
@@ -142,6 +143,11 @@ function updateText( elTextArea, newCharCode ) {
 		var lengthBfrAppend = text.length;
 		var cursorPos = elTextArea.selectionStart;
 		var selectionEnd = elTextArea.selectionEnd;
+		
+		if(adjustCursor) {
+			cursorPos++;
+		}
+		adjustCursor = false;
 		//console.log("updateText - cursorPos=" + cursorPos + ", selectionEnd=" + selectionEnd + ", lengthBfrAppend=" + lengthBfrAppend );
 		
 		var start = 0;
@@ -157,8 +163,8 @@ function updateText( elTextArea, newCharCode ) {
 		
 		var lengthAfterAppend = text.length;
 		var cursorDisplacement = lengthAfterAppend - lengthBfrAppend - 1;
-		
-		// for Chrome and Safari
+		  
+		// for Chrome and Safari ( since they seems to auto advance the cursor position for these characters )
 		if( newCharCode == 65 || newCharCode == 69 || newCharCode == 92 || newCharCode == 124 || 
 			newCharCode == 96 || newCharCode == 126 || newCharCode == 64 || newCharCode == 94 || 
 			newCharCode == 95 || newCharCode == 91 || newCharCode == 123 || newCharCode == 93 || 
@@ -166,16 +172,20 @@ function updateText( elTextArea, newCharCode ) {
 			
 			if(!isFirefox) {
 				cursorDisplacement--;
+				adjustCursor = true;
 			}
 		}
-		
-		//console.log("updateText - text=" + text + ", lengthAfterAppend=" + lengthAfterAppend + ", cursorDisplacement=" + cursorDisplacement );
+		//console.log("updateText - lengthAfterAppend=" + lengthAfterAppend + ", cursorDisplacement=" + cursorDisplacement );
 		
 		// update text area and cursor position
 		elTextArea.value = text;
+		
+		if( elTextArea.setSelectionRange !== undefined ) {
+			//elTextArea.setSelectionRange( cursorPos + cursorDisplacement, selectionEnd + cursorDisplacement );
+		}
 		elTextArea.selectionStart = cursorPos + cursorDisplacement;
 		elTextArea.selectionEnd = selectionEnd + cursorDisplacement;
-		//console.log("updateText - text after append=" + text);
+		//console.log("updateText - elTextArea.selectionStart=" + elTextArea.selectionStart + ", elTextArea.selectionEnd=" + elTextArea.selectionEnd );
 		
 		updateSuggestions( text, elTextArea.selectionEnd );
 	}
@@ -228,7 +238,6 @@ function replaceChars( elTextArea ) {
 	if( typeof(Storage) !== "undefined" ) {
 		localStorage.mainText = text;
 	}
-	
 }
 
 
