@@ -1,11 +1,11 @@
-
+<!DOCTYPE html>
 <html>
 
 	<head>
 		<META http-equiv=Content-Type content="text/html; charset=utf-8">
 		<title>Sinhala Text Editor</title>
 		<link rel="stylesheet" type="text/css" href="res/css/editor.css">
-		<script src="res/js/editor.js"></script>
+		<script src="res/js/jquery-2.1.1.js"></script>
 	</head>
 	
 	<body>
@@ -28,6 +28,8 @@
 						<option value="26">26</option>
 						<option value="28">28</option>
 					</select>
+					<label class="buttonText"><input type="radio" name="Mode" id="sinhalaMode" checked>Sinhala</label>
+					<label class="buttonText"><input type="radio" name="Mode" id="englishMode">English</label>
 					<input type=button onclick="printPreview()" class="buttonText" value="Print Preview" title="">
 					<input type=button onclick="print()" class="buttonText" value="Print">
 					<!--input type=button onclick="clearMetaData()" class="buttonText" value="Clear Metadata">
@@ -35,9 +37,7 @@
 				</div>
 			</div>
 			<div id="textAreaDiv">
-				<textarea id="mainTextArea" rows="40" cols="50" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..." 
-					onkeypress="return handleKeyInput( event, this )" 
-					onkeyup="return replaceChars(this)"></textarea>
+					<textarea id="mainTextArea" rows="40" cols="50" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
 			</div>
 		</div>
 		<div id="keyMapDiv" class="keyMapDivHidden rightTray">
@@ -85,7 +85,10 @@
 		
 	</body>
 	
+	<script src="res/js/editor.js"></script>
+	
 	<script>
+	
 	var elTextArea = document.getElementById("mainTextArea");
 	elTextArea.style.fontSize = '16px';
 	
@@ -93,8 +96,6 @@
 	if( typeof(Storage) !== "undefined" && localStorage.mainText && localStorage.mainText !== "" ) {
 		elTextArea.value = localStorage.mainText;
 	}
-	
-	
 	</script>
 	
 	<footer>

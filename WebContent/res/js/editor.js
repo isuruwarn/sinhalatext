@@ -1,220 +1,194 @@
-/**
- * 
- */
 
-var adjustCursor = false;
-var isFirefox = false;
+// handle main key input event
 
-var charMap = {
-	97:"\u0D85",
-	65: "\u0D82",
-	98: "\u0DB6",
-	66: "\u0DB7",
-	99: "\u0DA0",
-	67: "\u0DA1",
-	100: "\u0DA9",
-	68: "\u0DAA",
-	101: "\u0D91",
-	69: "\u0D83",
-	102: "\u0DC6",
-	70: "\u0D9E",
-	103: "\u0D9C",
-	71: "\u0D9D",
-	104: "\u0DC4",
-	72: "\u0DAC",
-	105: "\u0D89",
-	73: "\u0D8A",
-	106: "\u0DA2",
-	74: "\u0DA3",
-	107: "\u0D9A",
-	75: "\u0D9B",
-	108: "\u0DBD",
-	76: "\u0DC5",
-	109: "\u0DB8",
-	77: "\u0DB9",
-	110: "\u0DB1",
-	78: "\u0DAB",
-	111: "\u0D94",
-	79: "\u0D8D",
-	112: "\u0DB4",
-	80: "\u0DB5",
-	113: "\u0DA4",
-	81: "\u0DA5",
-	114: "\u0DBB",
-	82: "\u0DCA\u200D\u0DBB",
-	115: "\u0DC3",
-	83: "\u0DB3",
-	116: "\u0DA7",
-	84: "\u0DA8",
-	117: "\u0D8B",
-	85: "\u0D8E",
-	118: "\u0DC0",
-	86: "\u0D9F",
-	119: "\u0DAF",
-	87: "\u0DB0",
-	120: "\u0DC1",
-	88: "\u0DC2",
-	121: "\u0DBA",
-	89: "\u0DCA\u200D\u0DBA",
-	122: "\u0DAD",
-	90: "\u0DAE",
-	92: "\u0DCF",
-	124: "\u0DCA",
-	96: "\u0DD2",
-	126: "\u0DD3",
-	64: "\u0DD9",
-	94: "\u0DDA",
-	95: "\u0DD8",
-	91: "\u0DD4",
-	123: "\u0DD6",
-	93: "\u0DD0",
-	125: "\u0DD1",
-	60: "\u0DDC",
-	62: "\u0DDD",
-	1301: "\u0DCA\u200D\u0DBA",
-	1302: "\u0DCA\u200D\u0DBB",
-	1303: "\u0DBB\u0DCA\u200D\u200C",
-	1304: "\u0D9A\u0DCA\u200D\u0DC2",
-	1305: "\u0DA4",
-	1306: "\u0DA5",
-	1307: "\u0DCF",
-	1308: "\u0DCA",
-	1309: "\u0DD2",
-	1310: "\u0DD3",
-	1311: "\u0DD9",
-	1312: "\u0DDA",
-	1313: "\u0DD8",
-	1314: "\u0DD4",
-	1315: "\u0DD6",
-	1316: "\u0DD0",
-	1317: "\u0DD1",
-	1318: "\u0DDC",
-	1319: "\u0DDD",
-	1320: "\u0DDB",
-	1321: "\u0DDE",
-	1322: "\u0DF2",
-	1323: "\u0DDF",
-	1324: "\u0DF3",
-	1325: "\u0D82",
-	1326: "\u0D83"
+var MODE = {
+	ENGLISH: "English",
+	SINHALESE: "Sinhala"
 };
 
 
 
-function handleKeyInput( event, elTextArea ) {
+var charMap = {
+	97 : { NAME: "AYANNA",  UNICODE: "\u0D85",  HTMLCODE: "&#3461;",  CHARCODE: "a", },
+	65 : { NAME: "ANUSVARAYA",  UNICODE: "\u0D82",  HTMLCODE: "&#3458;",  CHARCODE: "A", },
+	98 : { NAME: "ALPAPRAANA_BAYANNA",  UNICODE: "\u0DB6",  HTMLCODE: "&#3510;",  CHARCODE: "b", },
+	66 : { NAME: "MAHAAPRAANA_BAYANNA",  UNICODE: "\u0DB7",  HTMLCODE: "&#3511;",  CHARCODE: "B", },
+	99 : { NAME: "ALPAPRAANA_CHAYANNA",  UNICODE: "\u0DA0",  HTMLCODE: "&#3488;",  CHARCODE: "c", },
+	67 : { NAME: "MAHAAPRAANA_CHAYANNA",  UNICODE: "\u0DA1",  HTMLCODE: "&#3489;",  CHARCODE: "C", },
+	100 : { NAME: "ALPAPRAANA_DDAYANNA",  UNICODE: "\u0DA9",  HTMLCODE: "&#3497;",  CHARCODE: "d",  },
+	68 : { NAME: "MAHAAPRAANA_DDAYANNA",  UNICODE: "\u0DAA",  HTMLCODE: "&#3498;",  CHARCODE: "D", },
+	101 : { NAME: "EYANNA",  UNICODE: "\u0D91",  HTMLCODE: "&#3473;",  CHARCODE: "e",  },
+	69 : { NAME: "VISARGAYA",  UNICODE: "\u0D83",  HTMLCODE: "&#3459;",  CHARCODE: "E", },
+	102 : { NAME: "FAYANNA",  UNICODE: "\u0DC6",  HTMLCODE: "&#3526;",  CHARCODE: "f",  },
+	70 : { NAME: "KANTAJA_NAASIKYAYA",  UNICODE: "\u0D9E",  HTMLCODE: "&#3486;",  CHARCODE: "F", },
+	103 : { NAME: "ALPAPRAANA_GAYANNA",  UNICODE: "\u0D9C",  HTMLCODE: "&#3484;",  CHARCODE: "g",  },
+	71 : { NAME: "MAHAAPRAANA_GAYANNA",  UNICODE: "\u0D9D",  HTMLCODE: "&#3485;",  CHARCODE: "G", },
+	104 : { NAME: "HAYANNA",  UNICODE: "\u0DC4",  HTMLCODE: "&#3524;",  CHARCODE: "h",  },
+	72 : { NAME: "SANYAKA_DDAYANNA",  UNICODE: "\u0DAC",  HTMLCODE: "&#3500;",  CHARCODE: "H", },
+	105 : { NAME: "IYANNA",  UNICODE: "\u0D89",  HTMLCODE: "&#3465;",  CHARCODE: "i",  },
+	73 : { NAME: "IIYANNA",  UNICODE: "\u0D8A",  HTMLCODE: "&#3466;",  CHARCODE: "I", },
+	106 : { NAME: "ALPAPRAANA_JAYANNA",  UNICODE: "\u0DA2",  HTMLCODE: "&#3490;",  CHARCODE: "j",  },
+	74 : { NAME: "MAHAAPRAANA_JAYANNA",  UNICODE: "\u0DA3",  HTMLCODE: "&#3491;",  CHARCODE: "J", },
+	107 : { NAME: "ALPAPRAANA_KAYANNA",  UNICODE: "\u0D9A",  HTMLCODE: "&#3482;",  CHARCODE: "k",  },
+	75 : { NAME: "MAHAAPRAANA_KAYANNA",  UNICODE: "\u0D9B",  HTMLCODE: "&#3483;",  CHARCODE: "K", },
+	108 : { NAME: "DANTAJA_LAYANNA",  UNICODE: "\u0DBD",  HTMLCODE: "&#3517;",  CHARCODE: "l",  },
+	76 : { NAME: "MUURDHAJA_LAYANNA",  UNICODE: "\u0DC5",  HTMLCODE: "&#3525;",  CHARCODE: "L", },
+	109 : { NAME: "MAYANNA",  UNICODE: "\u0DB8",  HTMLCODE: "&#3512;",  CHARCODE: "m",  },
+	77 : { NAME: "AMBA_BAYANNA",  UNICODE: "\u0DB9",  HTMLCODE: "&#3513;",  CHARCODE: "M", },
+	110 : { NAME: "DANTAJA_NAYANNA",  UNICODE: "\u0DB1",  HTMLCODE: "&#3505;",  CHARCODE: "n",  },
+	78 : { NAME: "MUURDHAJA_NAYANNA",  UNICODE: "\u0DAB",  HTMLCODE: "&#3499;",  CHARCODE: "N", },
+	111 : { NAME: "OYANNA",  UNICODE: "\u0D94",  HTMLCODE: "&#3476;",  CHARCODE: "o",  },
+	79 : { NAME: "IRUYANNA",  UNICODE: "\u0D8D",  HTMLCODE: "&#3469;",  CHARCODE: "O", },
+	112 : { NAME: "ALPAPRAANA_PAYANNA",  UNICODE: "\u0DB4",  HTMLCODE: "&#3508;",  CHARCODE: "p",  },
+	80 : { NAME: "MAHAAPRAANA_PAYANNA",  UNICODE: "\u0DB5",  HTMLCODE: "&#3509;",  CHARCODE: "P", },
+	113 : { NAME: "TAALUJA_NAASIKYAYA",  UNICODE: "\u0DA4",  HTMLCODE: "&#3492;",  CHARCODE: "q",  },
+	81 : { NAME: "TAALUJA_SANYOOGA_NAAKSIKYAYA",  UNICODE: "\u0DA5",  HTMLCODE: "&#3493;",  CHARCODE: "Q", },
+	114 : { NAME: "RAYANNA",  UNICODE: "\u0DBB",  HTMLCODE: "&#3515;",  CHARCODE: "r",  },
+	82 : { NAME: "RAKAYANSAYA",  UNICODE: "\u0DCA\u200D\u0DBB",  HTMLCODE: "&#3530;&#8205;&#3515;",  CHARCODE: "R", },
+	115 : { NAME: "DANTAJA_SAYANNA",  UNICODE: "\u0DC3",  HTMLCODE: "&#3523;",  CHARCODE: "s",  },
+	83 : { NAME: "SANYAKA_DAYANNA",  UNICODE: "\u0DB3",  HTMLCODE: "&#3507;",  CHARCODE: "S", },
+	116 : { NAME: "ALPAPRAANA_TTAYANNA",  UNICODE: "\u0DA7",  HTMLCODE: "&#3495;",  CHARCODE: "t",  },
+	84 : { NAME: "MAHAAPRAANA_TTAYANNA",  UNICODE: "\u0DA8",  HTMLCODE: "&#3496;",  CHARCODE: "T", },
+	117 : { NAME: "UYANNA",  UNICODE: "\u0D8B",  HTMLCODE: "&#3467;",  CHARCODE: "u",  },
+	85 : { NAME: "IRUUYANNA",  UNICODE: "\u0D8E",  HTMLCODE: "&#3470;",  CHARCODE: "U", },
+	118 : { NAME: "VAYANNA",  UNICODE: "\u0DC0",  HTMLCODE: "&#3520;",  CHARCODE: "v",  },
+	86 : { NAME: "SANYAKA_GAYANNA",  UNICODE: "\u0D9F",  HTMLCODE: "&#3487;",  CHARCODE: "V", },
+	119 : { NAME: "ALPAPRAANA_DAYANNA",  UNICODE: "\u0DAF",  HTMLCODE: "&#3503;",  CHARCODE: "w",  },
+	87 : { NAME: "MAHAAPRAANA_DAYANNA",  UNICODE: "\u0DB0",  HTMLCODE: "&#3504;",  CHARCODE: "W", },
+	120 : { NAME: "TAALUJA_SHAYANNA",  UNICODE: "\u0DC1",  HTMLCODE: "&#3521;",  CHARCODE: "x",  },
+	88 : { NAME: "MUURDHAJA_SHAYANNA",  UNICODE: "\u0DC2",  HTMLCODE: "&#3522;",  CHARCODE: "X", },
+	121 : { NAME: "YAYANNA",  UNICODE: "\u0DBA",  HTMLCODE: "&#3514;",  CHARCODE: "y",  },
+	89 : { NAME: "YANSAYA",  UNICODE: "\u0DCA\u200D\u0DBA",  HTMLCODE: "&#3530;&#8205;&#3514;",  CHARCODE: "Y", },
+	122 : { NAME: "ALPAPRAANA_TAYANNA",  UNICODE: "\u0DAD",  HTMLCODE: "&#3501;",  CHARCODE: "z",  },
+	90 : { NAME: "MAHAAPRAANA_TAYANNA",  UNICODE: "\u0DAE",  HTMLCODE: "&#3502;",  CHARCODE: "Z", },
+	92 : { NAME: "AELA_PILLA",  UNICODE: "\u0DCF",  HTMLCODE: "&#3535;",  CHARCODE: "\\", },
+	124 : { NAME: "AL_LAKUNA",  UNICODE: "\u0DCA",  HTMLCODE: "&#3530;",  CHARCODE: "|",  },
+	96 : { NAME: "KETTI_IS_PILLA",  UNICODE: "\u0DD2",  HTMLCODE: "&#3538;",  CHARCODE: "`", },
+	126 : { NAME: "DIGA_IS_PILLA",  UNICODE: "\u0DD3",  HTMLCODE: "&#3539;",  CHARCODE: "~",  },
+	64 : { NAME: "KOMBUVA",  UNICODE: "\u0DD9",  HTMLCODE: "&#3545;",  CHARCODE: "@", },
+	94 : { NAME: "DIGA_KOMBUVA",  UNICODE: "\u0DDA",  HTMLCODE: "&#3546;",  CHARCODE: "^", },
+	95 : { NAME: "GAETTA_PILLA",  UNICODE: "\u0DD8",  HTMLCODE: "&#3544;",  CHARCODE: "_", },
+	91 : { NAME: "PAA_PILLA",  UNICODE: "\u0DD4",  HTMLCODE: "&#3540;",  CHARCODE: "[", },
+	123 : { NAME: "DIGA_PAA_PILLA",  UNICODE: "\u0DD6",  HTMLCODE: "&#3542;",  CHARCODE: "{",  },
+	93 : { NAME: "AEDA_PILLA",  UNICODE: "\u0DD0",  HTMLCODE: "&#3536;",  CHARCODE: "]", },
+	125 : { NAME: "DIGA_AEDA_PILLA",  UNICODE: "\u0DD1",  HTMLCODE: "&#3537;",  CHARCODE: "}",  },
+	60 : { NAME: "KOMBUVA_HAA_AELA_PILLA",  UNICODE: "\u0DDC",  HTMLCODE: "&#3548;",  CHARCODE: "<", },
+	62 : { NAME: "KOMBUVA_HAA_DIGA_AELA_PILLA",  UNICODE: "\u0DDD",  HTMLCODE: "&#3549;",  CHARCODE: ">", },
+	1304 : { NAME: "KSHA",  UNICODE: "\u0D9A\u0DCA\u200D\u0DC2",  HTMLCODE: "&#3482;&#3530;&#8205;&#3522;",  CHARCODE: "1304", },
+	1305 : { NAME: "THALUJA_NASIKAYA",  UNICODE: "\u0DA4",  HTMLCODE: "&#3492;",  CHARCODE: "1305", },
+	1306 : { NAME: "SANYOGA_NASIKAYA",  UNICODE: "\u0DA5",  HTMLCODE: "&#3493;",  CHARCODE: "1306", },
+	1320 : { NAME: "KOMBU_DEKA",  UNICODE: "\u0DDB",  HTMLCODE: "&#3547;",  CHARCODE: "1320", },
+	1321 : { NAME: "KOMBUVA_HAA_GAYANUKITTA",  UNICODE: "\u0DDE",  HTMLCODE: "&#3550;",  CHARCODE: "1321", },
+	1322 : { NAME: "DIGA_GAETTA_PILLA",  UNICODE: "\u0DF2",  HTMLCODE: "&#3570;",  CHARCODE: "1322", },
+	1323 : { NAME: "GAYANUKITTA",  UNICODE: "\u0DDF",  HTMLCODE: "&#3551;",  CHARCODE: "1323", },
+	1324 : { NAME: "DIGA_GAYANUKITTA",  UNICODE: "\u0DF3",  HTMLCODE: "&#3571;",  CHARCODE: "1324", },
+	1400 : { NAME: "AAYANNA",  UNICODE: "\u0D86",  HTMLCODE: "&#3462;",  CHARCODE: "1400", },
+	1401 : { NAME: "AEYANNA",  UNICODE: "\u0D87",  HTMLCODE: "&#3463;",  CHARCODE: "1401", },
+	1402 : { NAME: "AEEYANNA",  UNICODE: "\u0D88",  HTMLCODE: "&#3464;",  CHARCODE: "1402", },
+	1403 : { NAME: "EEYANNA",  UNICODE: "\u0D92",  HTMLCODE: "&#3474;",  CHARCODE: "1403", },
+	1404 : { NAME: "AIYANNA",  UNICODE: "\u0D93",  HTMLCODE: "&#3475;",  CHARCODE: "1404", },
+	1405 : { NAME: "OOYANNA",  UNICODE: "\u0D95",  HTMLCODE: "&#3477;",  CHARCODE: "1405", },
+	1406 : { NAME: "AUYANNA",  UNICODE: "\u0D96",  HTMLCODE: "&#3478;",  CHARCODE: "1406", }
+	};
+
+
+
+
+$("#mainTextArea").bind("keypress", function(event) {
 	
-	var charCode = event.charCode; // not needed
-	var keyCode = event.keyCode;
-	var keyInput = charCode ? charCode : keyCode;
-	//console.log("handleKeyInput - keyInput=" + keyInput );
+	var sinhalaMode = $("#sinhalaMode").is(":checked");
 	
-	if( keyCode == 0 ) {
-		isFirefox = true;
+	if( sinhalaMode ) {
+		
+		var keyInput = event.which;
+		//console.log("handleKeyInput - keyInput=" + keyInput );
+		
+		var metaKey = event.metaKey; // for mac command key
+		var controlKey = event.ctrlKey;
+		//console.log("handleKeyInput - metaKey=" + metaKey + ", controlKey=" + controlKey );
+		
+		if( keyInput == 32 || keyInput == 13 ) {
+			updateAllWordsList( this );
+			document.getElementById("suggestionsHolder").innerHTML = "";
+			
+		} else if( keyInput < 48 || controlKey || metaKey ) {
+			return;
+			
+		} else {
+			// prevent english characters from being typed
+			event.preventDefault();
+			updateText( this, keyInput );
+		}
+		
 	}
 	
-	var metaKey = event.metaKey; // for mac command key
-	var controlKey = event.ctrlKey;
-	//console.log("handleKeyInput - metaKey=" + metaKey + ", controlKey=" + controlKey );
-	
-	if( keyInput == 32 || keyInput == 13 ) {
-		updateAllWordsList( elTextArea );
-		document.getElementById("suggestionsHolder").innerHTML = "";
-		
-	} else if( keyInput < 48 || controlKey || metaKey ) {
-		return;
-		
-	} else {
-		updateText( elTextArea, keyInput );
-	}
-}
+});
 
 
 
-function updateText( elTextArea, newCharCode ) {
+
+
+function updateText( elTextArea, keyInput ) {
 	
-	
-	var newChar = charMap[ newCharCode ];
-	//console.log("updateText - newCharCode=" + newCharCode );
+	var newChar = charMap[ keyInput ].UNICODE;
+	//console.log("updateText - newChar=" + newChar );
 	
 	if( newChar ) {
 		
-		//console.log("updateText - newChar=" + newChar );
-		var text = elTextArea.value;
-		var lengthBfrAppend = text.length;
-		var cursorPos = elTextArea.selectionStart;
-		var selectionEnd = elTextArea.selectionEnd;
-		
-		if(adjustCursor) {
-			cursorPos++;
-		}
-		adjustCursor = false;
-		//console.log("updateText - cursorPos=" + cursorPos + ", selectionEnd=" + selectionEnd + ", lengthBfrAppend=" + lengthBfrAppend );
-		
-		var start = 0;
-		var end = text.length;
-		var head = text.substring( start, cursorPos );
-		//console.log("updateText - head=" + head);
-		
-		var tail = text.substring( cursorPos, end );
-		//console.log("updateText - tail=" + tail);
-		
-		text = head + newChar + tail;
-		//console.log("updateText - text=" + text);
-		
-		var lengthAfterAppend = text.length;
-		var cursorDisplacement = lengthAfterAppend - lengthBfrAppend - 1;
-		  
-		// for Chrome and Safari ( since they seems to auto advance the cursor position for these characters )
-		if( newCharCode == 65 || newCharCode == 69 || newCharCode == 92 || newCharCode == 124 || 
-			newCharCode == 96 || newCharCode == 126 || newCharCode == 64 || newCharCode == 94 || 
-			newCharCode == 95 || newCharCode == 91 || newCharCode == 123 || newCharCode == 93 || 
-			newCharCode == 125 || newCharCode == 60 || newCharCode == 62 ) {
+		if( document.selection ) {
 			
-			if(!isFirefox) {
-				cursorDisplacement--;
-				adjustCursor = true;
-			}
+			//console.log("updateText - IE");
+			elTextArea.focus();
+		    var sel = document.selection.createRange();
+		    sel.text = newChar;
+		    elTextArea.focus();
+		
+		} else if( elTextArea.selectionStart || elTextArea.selectionStart == '0' ) {
+			
+			//console.log("updateText - firefox and webkit based browser");
+			var startPos = elTextArea.selectionStart;
+			var endPos = elTextArea.selectionEnd;
+			var scrollTop = elTextArea.scrollTop;
+			var head = elTextArea.value.substring( 0, startPos );
+			var tail = elTextArea.value.substring( endPos, elTextArea.value.length );
+			var text = head + newChar + tail;
+			elTextArea.value = text;
+			elTextArea.focus();
+			elTextArea.selectionStart = startPos + newChar.length;
+			elTextArea.selectionEnd = startPos + newChar.length;
+			elTextArea.scrollTop = scrollTop;
+		      
+		} else {
+			//console.log("updateText - weird browser");
+			elTextArea.value += newChar;
+			elTextArea.focus();
 		}
-		//console.log("updateText - lengthAfterAppend=" + lengthAfterAppend + ", cursorDisplacement=" + cursorDisplacement );
 		
-		// update text area and cursor position
-		elTextArea.value = text;
+		fixUnicodeIssues( elTextArea );
+		updateSuggestions( elTextArea.value, elTextArea.selectionEnd );
 		
-		if( elTextArea.setSelectionRange !== undefined ) {
-			//elTextArea.setSelectionRange( cursorPos + cursorDisplacement, selectionEnd + cursorDisplacement );
-		}
-		elTextArea.selectionStart = cursorPos + cursorDisplacement;
-		elTextArea.selectionEnd = selectionEnd + cursorDisplacement;
-		//console.log("updateText - elTextArea.selectionStart=" + elTextArea.selectionStart + ", elTextArea.selectionEnd=" + elTextArea.selectionEnd );
-		
-		updateSuggestions( text, elTextArea.selectionEnd );
 	}
 	
 }
 
 
 
-function replaceChars( elTextArea ) {
+
+function appendChar( charCode ) {
+	//console.log("appendChar - charCode=" + charCode);
+	var elTextArea = document.getElementById("mainTextArea");
+	updateText( elTextArea, charCode );
+}
+
+
+
+
+function fixUnicodeIssues( elTextArea ) {
 	
 	var text = elTextArea.value;
 	var selectionStart = elTextArea.selectionStart;
 	var selectionEnd = elTextArea.selectionEnd;
 	//console.log("replaceChars - selectionStart=" + selectionStart + ", selectionEnd=" + selectionEnd );
-	
-	text = text.replace( /[A-Za-z]/g, "" );
-	text = text.replace( "`", "" );
-	text = text.replace( "~", "" );
-	text = text.replace( "@", "" );
-	text = text.replace( "^", "" );
-	text = text.replace( "_", "" );
-	text = text.replace( "[", "" );
-	text = text.replace( "{", "" );
-	text = text.replace( "]", "" );
-	text = text.replace( "}", "" );
-	text = text.replace( "\\", "" );
-	text = text.replace( "|", "" );
-	text = text.replace( "<", "" );
-	text = text.replace( ">", "" );
 	
 	text = text.replace(/\u0D85\u0DCF/g, '\u0D86');
 	text = text.replace(/\u0D85\u0DD0/g, '\u0D87');
@@ -229,36 +203,18 @@ function replaceChars( elTextArea ) {
 	text = text.replace(/\u0DD9\u0DCF\u0DCA/g, "\u0DDD"); 
 	text = text.replace(/\u0DD9\u0DDF/g, "\u0DDE");
 	
-	// update textarea and cursor position
-	elTextArea.value = text;
-	elTextArea.selectionStart = selectionStart;
-	elTextArea.selectionEnd = selectionEnd;
-	
-	// save text history in localstorage
-	if( typeof(Storage) !== "undefined" ) {
-		localStorage.mainText = text;
+	// update textarea and cursor position if a replace was carried out
+	if( text !== elTextArea.value ) {
+		
+		elTextArea.value = text;
+		elTextArea.selectionStart = selectionStart - 1;
+		elTextArea.selectionEnd = selectionEnd - 1;
+		
+		// save text history in localstorage
+		if( typeof(Storage) !== "undefined" ) {
+			localStorage.mainText = text;
+		}
 	}
-}
-
-
-
-function appendChar( charCode ) {
-	
-	//console.log("appendChar - charCode=" + charCode);
-	
-	var elTextArea = document.getElementById("mainTextArea");
-	updateText( elTextArea, charCode );
-	replaceChars(elTextArea);
-	
-	// get initial cursor position
-	var cursorPos = elTextArea.selectionStart;
-	var selectionEnd = elTextArea.selectionEnd;
-	//console.log("appendChar - cursorPos=" + cursorPos + ", selectionEnd=" + selectionEnd );
-	
-	// update cursor position and set focus
-	elTextArea.selectionStart = cursorPos + 1;
-	elTextArea.selectionEnd = selectionEnd + 1;
-	elTextArea.focus();
 }
 
 
@@ -276,6 +232,13 @@ function clearAll() {
 	elTextArea.value = "";
 	elTextArea.focus();
 	elTextArea.select();
+}
+
+
+
+function clearMetaData() {
+	localStorage.allWordsList = "";
+	alert("Browser storage cleared!");
 }
 
 
@@ -351,13 +314,15 @@ function toggleRightTray( toggleBtnDiv, holderDivName ) {
 
 
 
+
+
 function updateAllWordsList( elTextArea ) {
 	
 	var newWords = 0;
 	var minimumLength = 2;
 	var text = elTextArea.value;
 	var currentWordList = getCurrentWordsList(text);
-	var allWordsList = [];
+	var allWordsList = window.localStorage.allWordsList;
 	
 	// initialize all words list
 	if( typeof(Storage) !== "undefined" ) {
@@ -411,7 +376,7 @@ function updateSuggestions( text, selectionEnd  ) {
 	var minimumLength = 3;
 	var suggestions = 0;
 	var currentWordList = getCurrentWordsList(text);
-	//console.log("updateSuggestions - currentWordList=" + currentWordList );
+	console.log("updateSuggestions - currentWordList=" + currentWordList );
 	
 	if( currentWordList.length > 0 ) {
 		
@@ -502,6 +467,20 @@ function getCurrentWordsList( text ) {
 
 
 function replaceSpecialCharsWithSpaces( text ) {
+	text = text.replace( /[A-Za-z]/g, "" );
+	text = text.replace( "`", "" );
+	text = text.replace( "~", "" );
+	text = text.replace( "@", "" );
+	text = text.replace( "^", "" );
+	text = text.replace( "_", "" );
+	text = text.replace( "[", "" );
+	text = text.replace( "{", "" );
+	text = text.replace( "]", "" );
+	text = text.replace( "}", "" );
+	text = text.replace( "\\", "" );
+	text = text.replace( "|", "" );
+	text = text.replace( "<", "" );
+	text = text.replace( ">", "" );
 	text = text.replace(/(\r\n|\n|\r)/g, ' ');
 	text = text.replace(/[0-9]/g, ' ');
 	text = text.replace(/\./g, ' ');
@@ -556,38 +535,6 @@ function appendSuggestion( word ) {
 	
 	document.getElementById("suggestionsHolder").innerHTML = "";
 }
-
-
-
-function clearMetaData() {
-	localStorage.allWordsList = "";
-	alert("Browser storage cleared!");
-}
-
-
-
-function removeFromAllWordsList( word ) {
-	
-	//console.log("removeFromAllWordsList - word=" + word );
-	
-	if( typeof(Storage) !== "undefined" ) {
-		
-		if( localStorage.allWordsList ) {
-			
-			var replaceString = ',' + word + ',';
-			localStorage.allWordsList = localStorage.allWordsList.replace( replaceString, ',');
-			alert('The word "' + word + '" was removed from browser storage');
-			
-		} else {
-			alert('No words have been saved in browser storage yet..');
-		}
-		
-	} else {
-		alert('Browser does not support local storage');
-	}
-	
-}
-
 
 
 
