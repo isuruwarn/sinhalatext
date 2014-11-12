@@ -1,0 +1,173 @@
+@CHARSET "UTF-8";
+
+body {
+	width: 330px;
+	background-color: #FFFFFF;
+}
+
+
+
+div#header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 330px;
+	height: 30px;
+	padding: 10px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 24px;
+	font-weight: 900;
+	text-shadow: #808080 0px 0px 0px;
+	background-color: #FAFAFA;
+	color: #808080;
+	border-bottom: 1px solid #D4D4D4;
+	z-index: 10;
+}
+
+
+
+div#mainDiv {
+	position: absolute;
+	top: 55px;
+	width: 330px;
+	height: 500px;
+	background-color: #FFFFFF;
+}
+
+
+
+div#toolbarsDiv {
+	position: absolute;
+	left: 0px;
+	width: 330px;
+	padding: 8px;
+	background-color: #FFFFFF;
+}
+
+
+
+div#textAreaDiv {
+	position: absolute;
+	top: 55px;
+	left: 5px;
+	width: 300px;
+	height: 400px;
+	background-color: #FFFFFF;
+}
+
+
+
+.mainTextareaSinhala {
+	width: 300px;
+	height: 500px;
+	font-size: 14px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	resize: none;
+	background-color: #FFFFFF;
+	color: #000000;
+}
+
+
+
+.buttonText {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 11px;
+	font-weight: bold;
+	padding: 5px 5px;
+	color: #202955;
+	border:1px solid #FFFFFF;
+	border-radius:3px;
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+
+
+.buttonText:hover {
+	background-color:#EFF5FB;
+	border:1px solid #81BEF7;
+}
+
+
+
+.keyMapTableDiv {
+	left: 10px;
+	top: 250px;
+	width: 300px;
+	position: absolute;
+	background-color: #FFFFFF;
+	z-index: 11;
+}
+
+
+
+.keyMapTable {
+	left: 0px;
+	width: 100%;
+	font-size: 11px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	color: #202955;
+	padding: 1px;
+	border-spacing: 1px;
+}
+
+
+
+.sinhalaButton {
+	border:1px solid #FAFAFA;
+	font-size: 11px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	text-align:center;
+	border:1px solid #D4D4D4;
+	border-radius:3px;
+	padding: 2px;
+	background: -webkit-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* Standard syntax */
+	background-image: -ms-linear-gradient(bottom right, #D4D4D4 0%, #FAFAFA 100%); /* IE */
+}
+
+
+
+.sinhalaButton:hover {
+	background-color:#EFF5FB;
+	border:1px solid #81BEF7;
+	cursor:pointer;
+}
+
+
+
+caption {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
+}
+
+
+
+footer {
+	position: absolute;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
+	font-weight: bold;
+	color: #808080;;
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+
+.errorMsg {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 12px;
+	font-weight: bold;
+	color: red;
+	border: 1px solid #D4D4D4;
+	background-color: #FAFAFA;
+	box-shadow: 15px 15px 15px #888888;
+	border-radius:3px;
+	padding:6px 10px;
+	text-align:center;
+}
+
+

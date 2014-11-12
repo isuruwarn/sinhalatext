@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<META http-equiv=Content-Type content="text/html; charset=utf-8">
+		<title>Sinhala Text Editor</title>
+		<link rel="stylesheet" type="text/css" href="res/css/editor_mob.css">
+		<script src="res/js/jquery-2.1.1.js"></script>
+		
+	</head>
+	
+	<body>
+	
+		<div id="header">Sinhala Text Editor</div>
+		
+		<div id="mainDiv">
+			
+			<div id="toolbarsDiv">
+				<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
+				<input type=button onclick="clearAll()" class="buttonText" value="Clear">
+				<label class="buttonText"><input type="radio" name="Mode" id="sinhalaMode" checked>Sinhala</label>
+				<label class="buttonText"><input type="radio" name="Mode" id="englishMode">English</label>
+			</div>
+			
+			<div id="textAreaDiv">
+				<textarea id="mainTextArea" rows="10" cols="30" class="mainTextareaSinhala" disabled></textarea>
+			</div>
+			
+			<script src="res/js/editor_mob.js"></script>
+			
+			<div id="keyMapDiv" class="keyMapTableDiv">
+				<script>
+					createKeyMapTable();
+				</script>
+			</div>
+			
+		</div>
+		
+		
+	</body>
+	
+	<script>
+		restorePreviousText();
+	</script>
+	
+	<footer>		 
+		<br><br>
+	</footer>
+
+</html>

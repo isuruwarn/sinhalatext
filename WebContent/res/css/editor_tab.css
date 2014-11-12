@@ -1,0 +1,288 @@
+@CHARSET "UTF-8";
+
+body {
+	/*background-color: #EFF5FB;*/
+	background-color: #FFFFFF;
+}
+
+
+
+div#header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 30px;
+	padding: 10px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 24px;
+	font-weight: 900;
+	text-shadow: #808080 0px 0px 0px;
+	background-color: #FAFAFA;
+	/*background-color: #EFF5FB;*/
+	color: #808080;
+	/*color: #202955;*/
+	border-bottom: 1px solid #D4D4D4;
+	z-index: 10;
+}
+
+
+
+div#mainDiv {
+	position: absolute;
+	top: 55px;
+	left: 235px;
+	width: 750px;
+	height: 980px;
+	background-color: #FFFFFF;
+	z-index: 10;
+	border-left: 1px solid #D4D4D4;
+	border-right: 1px solid #D4D4D4;
+}
+
+
+
+div#toolbarsDiv {
+	position: absolute;
+	top: 0px;
+	left: 25px;
+	width: 680px;
+	height: 30px;
+	padding: 10px;
+	background-color: #FFFFFF;
+	/*
+	background-color: #FAFAFA;
+	border: 1px solid #D4D4D4;
+	box-shadow: 10px 10px 10px 10px #888888;
+	*/
+}
+
+
+
+div#textAreaDiv {
+	position: absolute;
+	top: 55px;
+	left: 25px;
+	width: 700px;
+	height: 900px;
+	background-color: #FFFFFF;
+}
+
+
+
+.mainTextareaSinhala {
+	height: 900px;
+	width: 700px;
+	font-size: 14px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	resize: none;
+}
+
+
+
+.buttonText {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 11px;
+	font-weight: bold;
+	padding: 6px 10px;
+	color: #202955;
+	border:1px solid #FFFFFF;
+	border-radius:3px;
+	background-color: #FFFFFF;
+	cursor: pointer;
+}
+
+
+
+.buttonText:hover {
+	background-color:#EFF5FB;
+	border:1px solid #81BEF7;
+}
+
+
+
+.divTransitions {
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5 ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+
+
+.rightTray {
+	position: absolute;
+	border-top: 8px solid #D4D4D4;
+	border-right: 8px solid #D4D4D4;
+	border-bottom: 8px solid #D4D4D4;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 10px;
+	/*background-color: #F2F2F2;*/
+	background-color: #FFFFFF;
+}
+
+
+
+.trayToggleButton {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: #808080 0px 0px 5px;
+	color: #808080;
+	background-color: #D4D4D4;
+	cursor: pointer;
+}
+
+
+
+.keyMapDivHidden {
+	top: 110px;
+	left: 695px;
+	width: 260px;
+	height: 740px;
+	border: 8px solid #D4D4D4;
+}
+
+
+
+.keyMapDivShow {
+	top: 110px;
+	left: 980px;
+	width: 260px;
+	height: 740px;
+}
+
+
+
+.keyMapToggleButton {
+	top: 370px;
+	left: 285px;
+	padding: 0px;
+	background-color: #D4D4D4;
+}
+
+
+
+.keyMapTable {
+	width: 260px;
+	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	color: #202955;
+	padding: 2px;
+	border-spacing: 2px;
+	vertical-align: middle;
+}
+
+
+
+.suggestionsHolder {
+	position: absolute;
+	top: 110px;
+	left: 30px;
+	width: 190px;
+	height: 300px;
+	padding: 10px;
+}
+
+
+
+.suggestionsTable {
+	width: 170px;
+	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	color: #202955;
+	padding: 2px;
+	border-spacing: 2px;
+}
+
+
+
+.delSuggestion {
+	position: relative;
+	left: -10;
+	top: -10px;
+	width: 5px;
+	height: 5px;
+	font-size: 10px;
+	font-weight: 900;
+	border: 1px solid #D4D4D4;
+	border-radius: 20px;
+	background-color: #FAFAFA;
+}
+
+
+
+.delSuggestion:hover {
+	border: 1px solid #81BEF7;
+	cursor: pointer;
+	background-color: #EFF5FB;
+}
+
+
+
+.sinhalaButton {
+	border:1px solid #FAFAFA;
+	font-size: 14px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	text-align:center;
+	border:1px solid #D4D4D4;
+	border-radius:3px;
+	padding: 2px;
+	background: -webkit-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* Standard syntax */
+	background-image: -ms-linear-gradient(bottom right, #D4D4D4 0%, #FAFAFA 100%); /* IE */
+}
+
+
+
+.sinhalaButton:hover {
+	background-color:#EFF5FB;
+	border:1px solid #81BEF7;
+	cursor:pointer;
+}
+
+
+
+caption {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
+}
+
+
+
+footer {
+	position: absolute;
+	top: 1050px;
+	left: 260px;
+	width: 700px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 10px;
+	font-weight: bold;
+	color: #808080;;
+	text-align: center;
+	vertical-align: middle;
+}
+
+
+
+.errorMsg {
+	font-family: "Helvetica Neue" ,"Verdana";
+	font-size: 12px;
+	font-weight: bold;
+	color: red;
+	border: 1px solid #D4D4D4;
+	background-color: #FAFAFA;
+	box-shadow: 15px 15px 15px #888888;
+	border-radius:3px;
+	padding:6px 10px;
+	text-align:center;
+}
+
+
