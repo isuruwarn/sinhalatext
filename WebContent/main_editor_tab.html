@@ -3,62 +3,45 @@
 
 	<head>
 		<META http-equiv=Content-Type content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=750, initial-scale=1">
 		<title>Sinhala Text Editor</title>
 		<link rel="stylesheet" type="text/css" href="res/css/editor_tab.css">
 		<script src="res/js/jquery-2.1.1.js"></script>
+		
 	</head>
 	
 	<body>
 	
-		<div id="header">Sinhala Text Editor</div>
-		<div id="suggestionsHolder" class="suggestionsHolder"></div>
+		<div id="header" align=center>Sinhala Text Editor</div>
 		
 		<div id="mainDiv">
-			<br>
-			<div id="toolbarsDiv">
-				<div id="edit_toolbar" align="center">
-					<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
-					<input type=button onclick="clearAll()" class="buttonText" value="Clear">
-					<select id="selFontSize" onchange="changeFontSize()" class="buttonText" title="Font Size">
-						<option value="12">12</option>
-						<option value="14">14</option>
-						<option value="16" selected>16</option>
-						<option value="18">18</option>
-						<option value="20">20</option>
-						<option value="22">22</option>
-						<option value="24">24</option>
-						<option value="26">26</option>
-						<option value="28">28</option>
-					</select>
-					<label class="buttonText"><input type="radio" name="Mode" id="sinhalaMode" checked>Sinhala</label>
-					<label class="buttonText"><input type="radio" name="Mode" id="englishMode">English</label>
-					<input type=button onclick="printPreview()" class="buttonText" value="Print Preview" title="">
-					<input type=button onclick="print()" class="buttonText" value="Print">
-					<!--input type=button onclick="clearMetaData()" class="buttonText" value="Clear Metadata">
-					<input type=button onclick="" class="buttonText" value="Help"-->
-				</div>
+			
+			<div id="toolbarsDiv" align=center>
+				<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
+				<input type=button onclick="clearAll()" class="buttonText" value="Clear">
+				<input type=button onclick="help()" class="buttonText" value="Help">
 			</div>
 			
-			<div id="textAreaDiv">
-					<textarea id="mainTextArea" rows="40" cols="50" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
+			<div id="textAreaDiv" align=center>
+				<textarea id="mainTextArea" rows="15" cols="60" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
 			</div>
 			
-		</div>
-		
-		<script src="res/js/editor_tab.js"></script>
-		
-		<div id="keyMapDiv" class="keyMapDivHidden rightTray">
-			<script>
-				createKeyMapTable();
-			</script>
-			<div id="keyMapToggleButton" class="keyMapToggleButton rightTray trayToggleButton" onclick="toggleRightTray( this, 'keyMapDiv')" title="KeyMap">&gt;&gt;</div>
+			<script src="res/js/editor_tab.js"></script>
+			
+			<div id="keyMapDiv" align=center class="keyMapTableDiv center">
+				<script>
+					createSinhalaButtons();
+				</script>
+			</div>
+			
 		</div>
 		
 	</body>
 	
 	<script>
-		changeFontSize();
 		restorePreviousText();
+		//var screenWidth = screen.width;
+		//document.getElementById("mainTextArea").value = screenWidth;
 	</script>
 	
 	<footer>		 

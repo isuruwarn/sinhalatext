@@ -7,40 +7,47 @@ body {
 
 
 
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
 div#header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 330px;
-	height: 30px;
-	padding: 10px;
+	height: 25px;
+	padding: 5px;
 	font-family: "Helvetica Neue" ,"Verdana";
-	font-size: 24px;
+	font-size: 20px;
 	font-weight: 900;
 	text-shadow: #808080 0px 0px 0px;
 	background-color: #FAFAFA;
 	color: #808080;
 	border-bottom: 1px solid #D4D4D4;
-	z-index: 10;
 }
 
 
 
 div#mainDiv {
 	position: absolute;
-	top: 55px;
+	top: 40px;
 	width: 330px;
-	height: 500px;
 	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
 }
 
 
 
 div#toolbarsDiv {
 	position: absolute;
+	top: 0px;
 	left: 0px;
 	width: 330px;
-	padding: 8px;
+	padding: 0px;
 	background-color: #FFFFFF;
 }
 
@@ -48,18 +55,15 @@ div#toolbarsDiv {
 
 div#textAreaDiv {
 	position: absolute;
-	top: 55px;
-	left: 5px;
-	width: 300px;
-	height: 400px;
+	top: 35px;
+    width: 100%;
+	height: 100px;
 	background-color: #FFFFFF;
 }
 
 
 
 .mainTextareaSinhala {
-	width: 300px;
-	height: 500px;
 	font-size: 14px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	resize: none;
@@ -71,7 +75,7 @@ div#textAreaDiv {
 
 .buttonText {
 	font-family: "Helvetica Neue" ,"Verdana";
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: bold;
 	padding: 5px 5px;
 	color: #202955;
@@ -91,23 +95,22 @@ div#textAreaDiv {
 
 
 .keyMapTableDiv {
-	left: 10px;
-	top: 250px;
-	width: 300px;
+	top: 95px;
+	height: 95px;
+	width: 99%;
 	position: absolute;
 	background-color: #FFFFFF;
-	z-index: 11;
+	border: 1px solid #FFFFFF;
 }
 
 
 
 .keyMapTable {
-	left: 0px;
-	width: 100%;
-	font-size: 11px;
+	width: 90%;
+	font-size: 12px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	color: #202955;
-	padding: 1px;
+	padding: 2px;
 	border-spacing: 1px;
 }
 
@@ -115,7 +118,7 @@ div#textAreaDiv {
 
 .sinhalaButton {
 	border:1px solid #FAFAFA;
-	font-size: 11px;
+	font-size: 14px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	text-align:center;
 	border:1px solid #D4D4D4;
@@ -135,6 +138,29 @@ div#textAreaDiv {
 	border:1px solid #81BEF7;
 	cursor:pointer;
 }
+
+
+
+.helpKeyMap {
+	top: 35px;
+	width: 90%;
+	position: absolute;
+	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	color: #202955;
+	padding: 2px;
+	border-spacing: 1px;
+}
+
+
+
+.helpKeyMapTable {
+	width: 100%;
+	position: absolute;
+	background-color: #FFFFFF;
+	border: 1px solid #FFFFFF;
+}
+
 
 
 

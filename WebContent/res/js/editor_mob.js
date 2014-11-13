@@ -87,28 +87,22 @@ var charMap = {
 
 $("#mainTextArea").bind("keypress", function(event) {
 	
-	var sinhalaMode = $("#sinhalaMode").is(":checked");
+	var keyInput = event.which;
+	//console.log("handleKeyInput - keyInput=" + keyInput );
 	
-	if( sinhalaMode ) {
+	var metaKey = event.metaKey; // for mac command key
+	var controlKey = event.ctrlKey;
+	
+	if( keyInput == 32 || keyInput == 13 ) {
+		updateTextInLocalStorage( this.value );
 		
-		var keyInput = event.which;
-		console.log("handleKeyInput - keyInput=" + keyInput );
+	} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
+		return;
 		
-		var metaKey = event.metaKey; // for mac command key
-		var controlKey = event.ctrlKey;
-		
-		if( keyInput == 32 || keyInput == 13 ) {
-			return;
-			
-		} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
-			return;
-			
-		} else {
-			// prevent english characters from being typed
-			event.preventDefault();
-			updateText( this, keyInput );
-		}
-		
+	} else {
+		// prevent english characters from being typed
+		event.preventDefault();
+		updateText( this, keyInput );
 	}
 	
 });
@@ -120,7 +114,7 @@ $("#mainTextArea").bind("keypress", function(event) {
 function updateText( elTextArea, keyInput ) {
 	
 	var newChar = charMap[ keyInput ].UNICODE;
-	console.log("updateText - newChar=" + newChar );
+	//console.log("updateText - newChar=" + newChar );
 	
 	if( newChar ) {
 		
@@ -196,6 +190,7 @@ function fixUnicodeIssues( elTextArea ) {
 		
 		updateTextInLocalStorage( elTextArea.value );
 	}
+	
 }
 
 
@@ -212,24 +207,28 @@ function clearAll() {
 	var elTextArea = document.getElementById("mainTextArea");
 	elTextArea.value = "";
 	elTextArea.focus();
-	elTextArea.select();
 }
 
 
 
-function createKeyMapTable() {
+function createSinhalaButtons() {
 	
 	var mainKMTable = $("<table></table>").addClass("keyMapTable");
-	var captionMainTable = $("<caption></caption>").text("Key Map");
 	var trMainTable = $("<tr></tr>");
-	var keys = [97, 65, 98, 66, 99, 67, 100, 68, 101, 69, 102, 70, 103, 71, 104, 72, 105, 73, 106, 74, 107, 75, 108, 76, 109, 77, 110, 78, 111, 79, 112, 80, 113, 81, 114, 82, 115, 83, 116, 84, 117, 85, 118, 86, 119, 87, 120, 88, 121, 89, 122, 90, 92, 124, 96, 126, 64, 94, 95, 91, 123, 93, 125, 60, 62 ];
+	var keys = [ 89, 82, 1304, 1305, 1306, 79,
+	             92, 124, 96, 126, 64, 94, 
+	             60, 62, 91, 123, 93, 125, 
+	             1320, 95, 1322, 1323, 1324, 1321
+	             ];
+	
 	var keyCount = 0;
 	
-	for( var i=0; i<65; i++ ) {
+	for( var i=0; i<keys.length; i++ ) {
 		
     	var td = $("<td></td>");
 	    var key = keys[i];
 	    var symbol = null;
+	    
 	    if(key) {
 			symbol = charMap[key];
 		    td = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME, onclick: "appendChar(" + key + ")"  } );
@@ -238,7 +237,7 @@ function createKeyMapTable() {
 	    trMainTable.append(td);
 	    keyCount++;
 	    
-	    if( keyCount % 10 == 0 ) {
+	    if( keyCount % 6 == 0 ) {
 	    	mainKMTable.append(trMainTable);
 	    	trMainTable = $("<tr></tr>");
 	    	keyCount = 0;
@@ -247,29 +246,7 @@ function createKeyMapTable() {
 	}
 	
 	mainKMTable.append(trMainTable);
-	
-	mainKMTable.append(captionMainTable);
 	$('#keyMapDiv').append(mainKMTable);
-	
-	var br = $("<br>");
-	$("#keyMapDiv").append(br);
-	
-	var specialSymbols = [ 1304, 1305, 1306, 1320, 1321, 1322, 1323, 1324 ];
-	var addCharsTable = $("<table></table>").addClass("keyMapTable");
-	var captionAddCharsTable = $("<caption></caption>").text("Additional Characters");
-	var trAddCharsTable = $("<tr></tr>");
-	
-	for( var i=0; i<specialSymbols.length; i++ ) {
-		
-		var key = specialSymbols[i];
-		var symbol = charMap[key];
-	    var td = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME, onclick: "appendChar(" + key + ")"  } );
-	    trAddCharsTable.append(td);
-	}
-	
-	addCharsTable.append(captionAddCharsTable);
-	addCharsTable.append(trAddCharsTable);
-	$('#keyMapDiv').append(addCharsTable);
 	
 }
 
@@ -296,6 +273,80 @@ function updateTextInLocalStorage( text ) {
 }
 
 
+
+
+function help() {
+	window.location.href = "help_mob.html";
+}
+
+
+
+
+function back() {
+	window.location.href = "main_editor_mob.html";
+}
+
+
+
+
+function createKeyMapTable() {
+	
+	var mainKMTable = $("<table></table>").addClass("helpKeyMapTable").attr( { align: "center" } );
+	
+	var keys = [97, 65, 98, 66, 99, 67, 100, 68, 101, 69, 102, 70, 103, 71, 104, 72, 105, 73, 106, 74, 107, 75, 108, 76, 109, 77, 110, 78, 111, 79, 112, 80, 113, 81, 114, 82, 115, 83, 116, 84, 117, 85, 118, 86, 119, 87, 120, 88, 121, 89, 122, 90, 92, 124, 96, 126, 64, 94, 95, 91, 123, 93, 125, 60, 62 ];
+	
+	for( var i=0; i<22; i++ ) {
+		
+		var trMainTable = $("<tr></tr>");
+		
+		var key = keys[i];
+		var symbol = charMap[key];
+		var td1 = $("<td>" + symbol.CHARCODE + "</td>");
+		var td2 = $("<td>-</td>");
+	    var td3 = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME } );
+	    var td4 = $("<td>&nbsp;&nbsp;</td>").attr( { width: "20px" } );
+	    
+    	var td5 = $("<td></td>");
+    	var td6 = $("<td></td>");
+    	var td7 = $("<td></td>");
+    	var td8 = $("<td></td>");
+	    key = keys[i+22];
+	    if(key) {
+			symbol = charMap[key];
+		    td5 = $("<td>" + symbol.CHARCODE + "</td>");
+			td6 = $("<td>-</td>");
+		    td7 = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME } );
+		    td8 = $("<td>&nbsp;&nbsp;</td>").attr( { width: "20px" } );
+	    }
+	    
+    	var td9 = $("<td></td>");
+    	var td10 = $("<td></td>");
+    	var td11 = $("<td></td>");
+	    key = keys[i+45];
+	    if(key) {
+			symbol = charMap[key];
+		    td9 = $("<td>" + symbol.CHARCODE + "</td>");
+			td10 = $("<td>-</td>");
+		    td11 = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME } );
+	    }
+	    
+	    trMainTable.append(td1);
+	    trMainTable.append(td2);
+	    trMainTable.append(td3);
+	    trMainTable.append(td4);
+	    trMainTable.append(td5);
+	    trMainTable.append(td6);
+	    trMainTable.append(td7);
+	    trMainTable.append(td8);
+	    trMainTable.append(td9);
+	    trMainTable.append(td10);
+	    trMainTable.append(td11);
+	    mainKMTable.append(trMainTable);
+	}
+	
+	$('#helpKeyMapDiv').append(mainKMTable);
+	
+}
 
 
 

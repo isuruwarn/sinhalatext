@@ -3,6 +3,7 @@
 
 	<head>
 		<META http-equiv=Content-Type content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=330, initial-scale=1">
 		<title>Sinhala Text Editor</title>
 		<link rel="stylesheet" type="text/css" href="res/css/editor_mob.css">
 		<script src="res/js/jquery-2.1.1.js"></script>
@@ -11,26 +12,25 @@
 	
 	<body>
 	
-		<div id="header">Sinhala Text Editor</div>
+		<div id="header" align=center>Sinhala Text Editor</div>
 		
 		<div id="mainDiv">
 			
-			<div id="toolbarsDiv">
+			<div id="toolbarsDiv" align=center>
 				<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
 				<input type=button onclick="clearAll()" class="buttonText" value="Clear">
-				<label class="buttonText"><input type="radio" name="Mode" id="sinhalaMode" checked>Sinhala</label>
-				<label class="buttonText"><input type="radio" name="Mode" id="englishMode">English</label>
+				<input type=button onclick="help()" class="buttonText" value="Help">
 			</div>
 			
-			<div id="textAreaDiv">
-				<textarea id="mainTextArea" rows="10" cols="30" class="mainTextareaSinhala" disabled></textarea>
+			<div id="textAreaDiv" align=center>
+				<textarea id="mainTextArea" rows="3" cols="35" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
 			</div>
 			
 			<script src="res/js/editor_mob.js"></script>
 			
-			<div id="keyMapDiv" class="keyMapTableDiv">
+			<div id="keyMapDiv" align=center class="keyMapTableDiv center">
 				<script>
-					createKeyMapTable();
+					createSinhalaButtons();
 				</script>
 			</div>
 			
@@ -41,6 +41,8 @@
 	
 	<script>
 		restorePreviousText();
+		var screenWidth = screen.width;
+		document.getElementById("mainTextArea").value = screenWidth;
 	</script>
 	
 	<footer>		 
