@@ -85,6 +85,27 @@ var charMap = {
 
 
 
+
+
+$("#mainTextArea").focus(function() {
+	$("#header").html("");
+	$("#header").removeClass("headerDiv");
+	$("#mainDiv").css({ top: '0px' });
+});
+
+
+
+
+
+//$("#mainTextArea").focusout(function() {
+//	$("#header").html("Sinhala Text Editor");
+//	$("#header").addClass("headerDiv");
+//	$("#mainDiv").css({ top: '40px' });
+//});
+
+
+
+
 $("#mainTextArea").bind("keypress", function(event) {
 	
 	var keyInput = event.which;
@@ -227,10 +248,9 @@ function createSinhalaButtons() {
 		
     	var td = $("<td></td>");
 	    var key = keys[i];
-	    var symbol = null;
+	    var symbol = charMap[key];
 	    
-	    if(key) {
-			symbol = charMap[key];
+	    if(symbol) {
 		    td = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME, onclick: "appendChar(" + key + ")"  } );
 	    }
 	    

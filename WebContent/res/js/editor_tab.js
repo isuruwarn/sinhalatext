@@ -218,28 +218,23 @@ function createSinhalaButtons() {
 	var mainKMTable = $("<table></table>").addClass("keyMapTable");
 	var trMainTable = $("<tr></tr>");
 
-	var keys = [ 97, 1400, 1401, 1402, 105, 73, 117, 1407, 79, 85, 101, 1403,
-	             111, 1405, 1406, 107, 75, 103, 71, 70, 86, 72,    
-	             99, 67, 106, 74, 113, 81, 1408, 83, 116, 84,     
-	             100, 68, 110, 78, 112, 90, 119, 87, 112, 80,    
-	             98, 66, 109, 77, 121, 114, 108, 118, 120, 88,    
-	             115, 104, 76, 102,
-	             
-	             1304, 89, 82, 1304, 
-	             92, 124, 96, 126, 64, 94, 
-	             60, 62, 91, 123, 93, 125, 
-	             1320, 95, 1322, 1323, 1324, 1321, 65, 69
-		         ];
+	var alphabet = [ 97, 1400, 1401, 1402, 105, 73, 117, 1407, 79, 85, 
+	             101, 1403, 1404, 111, 1405, 1406, 107, 75, 103, 71, 70, 
+	             86, 99, 67, 106, 74, 113, 81, 1408, 83, 
+	             116, 84, 100, 68, 110, 78, 122, 90, 119, 87, 
+	             112, 80, 98, 66, 109, 77, 121, 114, 108, 118, 
+	             120, 88, 115, 104, 76, 102, 72, 1304, 89, 82,
+	             92, 124, 96, 126, 64, 94, 60, 62, 91, 123,
+	             93, 125, 1320, 95, 1322, 1323, 1324, 1321, 65, 69 ];
 	var keyCount = 0;
 	
-	for( var i=0; i<keys.length; i++ ) {
+	for( var i = 0; i < alphabet.length; i++ ) {
 		
     	var td = $("<td></td>");
-	    var key = keys[i];
-	    var symbol = null;
+	    var key = alphabet[i];
+	    var symbol = charMap[key];
 	    
-	    if(key) {
-			symbol = charMap[key];
+	    if(symbol) {
 		    td = $("<td>" + symbol.HTMLCODE + "</td>").addClass("sinhalaButton").attr( { title: symbol.NAME, onclick: "appendChar(" + key + ")"  } );
 	    }
 	    

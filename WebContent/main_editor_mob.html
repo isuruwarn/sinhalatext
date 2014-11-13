@@ -7,31 +7,31 @@
 		<title>Sinhala Text Editor</title>
 		<link rel="stylesheet" type="text/css" href="res/css/editor_mob.css">
 		<script src="res/js/jquery-2.1.1.js"></script>
-		
 	</head>
 	
 	<body>
 	
-		<div id="header" align=center>Sinhala Text Editor</div>
+		<div id="header" align=center class="headerDiv">Sinhala Text Editor</div>
 		
 		<div id="mainDiv">
+			
+			<div id="textAreaDiv" align=left>
+				<textarea id="mainTextArea" rows="3" cols="33" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
+			</div>
+			
+			<script src="res/js/editor_mob.js"></script>
+			
+			<div id="keyMapDiv" align=left class="keyMapTableDiv">
+				<script>
+					createSinhalaButtons();
+				</script>
+			</div>
 			
 			<div id="toolbarsDiv" align=center>
 				<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
 				<input type=button onclick="clearAll()" class="buttonText" value="Clear">
 				<input type=button onclick="help()" class="buttonText" value="Help">
-			</div>
-			
-			<div id="textAreaDiv" align=center>
-				<textarea id="mainTextArea" rows="3" cols="35" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
-			</div>
-			
-			<script src="res/js/editor_mob.js"></script>
-			
-			<div id="keyMapDiv" align=center class="keyMapTableDiv center">
-				<script>
-					createSinhalaButtons();
-				</script>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			</div>
 			
 		</div>
@@ -41,8 +41,8 @@
 	
 	<script>
 		restorePreviousText();
-		var screenWidth = screen.width;
-		document.getElementById("mainTextArea").value = screenWidth;
+		//var screenWidth = screen.width;
+		//document.getElementById("mainTextArea").value = screenWidth;
 	</script>
 	
 	<footer>		 
