@@ -16,14 +16,27 @@ div#header {
 	padding: 10px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 24px;
-	font-weight: 900;
+	font-weight: 0;
 	text-shadow: #808080 0px 0px 0px;
 	background-color: #FAFAFA;
-	/*background-color: #EFF5FB;*/
 	color: #808080;
-	/*color: #202955;*/
 	border-bottom: 1px solid #D4D4D4;
 	z-index: 10;
+	
+	/*color: #FFFFFF;
+	background: -webkit-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: -o-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: -moz-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: linear-gradient(bottom right, #81BEF7, #0174DF); 
+	background-image: -ms-linear-gradient(bottom right, #81BEF7 0%, #0174DF 100%);
+	
+	color: #FFFFFF;
+	background: -webkit-linear-gradient(#424242, #0B173B);
+	background: -o-linear-gradient(#424242, #0B173B);
+	background: -moz-linear-gradient(#424242, #0B173B);
+	background: linear-gradient(#424242, #0B173B); 
+	background-image: -ms-linear-gradient(#424242 0%, #0B173B 100%);
+	*/
 }
 
 
@@ -50,11 +63,6 @@ div#toolbarsDiv {
 	height: 30px;
 	padding: 10px;
 	background-color: #FFFFFF;
-	/*
-	background-color: #FAFAFA;
-	border: 1px solid #D4D4D4;
-	box-shadow: 10px 10px 10px 10px #888888;
-	*/
 }
 
 

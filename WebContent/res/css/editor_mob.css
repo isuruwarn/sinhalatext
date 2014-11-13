@@ -23,11 +23,26 @@ body {
 	padding: 5px;
 	font-family: "Helvetica Neue" ,"Verdana";
 	font-size: 20px;
-	font-weight: 900;
+	font-weight: 0;
 	text-shadow: #808080 0px 0px 0px;
 	background-color: #FAFAFA;
 	color: #808080;
 	border-bottom: 1px solid #D4D4D4;
+	
+	/*color: #FFFFFF;
+	background: -webkit-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: -o-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: -moz-linear-gradient(bottom right, #81BEF7, #0174DF);
+	background: linear-gradient(bottom right, #81BEF7, #0174DF); 
+	background-image: -ms-linear-gradient(bottom right, #81BEF7 0%, #0174DF 100%);
+	
+	color: #FFFFFF;
+	background: -webkit-linear-gradient(#424242, #0B173B);
+	background: -o-linear-gradient(#424242, #0B173B);
+	background: -moz-linear-gradient(#424242, #0B173B);
+	background: linear-gradient(#424242, #0B173B); 
+	background-image: -ms-linear-gradient(#424242 0%, #0B173B 100%);
+	*/
 }
 
 
@@ -194,9 +209,21 @@ footer {
 	border: 1px solid #D4D4D4;
 	background-color: #FAFAFA;
 	box-shadow: 15px 15px 15px #888888;
-	border-radius:3px;
-	padding:6px 10px;
-	text-align:center;
+	border-radius: 3px;
+	padding: 6px 10px;
+	text-align: center;
 }
+
+
+
+div#helpToolbarDiv {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 320px;
+	padding: 0px;
+	background-color: #FFFFFF;
+}
+
 
 

@@ -79,7 +79,9 @@ var charMap = {
 	1403 : { NAME: "EEYANNA",  UNICODE: "\u0D92",  HTMLCODE: "&#3474;",  CHARCODE: "1403", },
 	1404 : { NAME: "AIYANNA",  UNICODE: "\u0D93",  HTMLCODE: "&#3475;",  CHARCODE: "1404", },
 	1405 : { NAME: "OOYANNA",  UNICODE: "\u0D95",  HTMLCODE: "&#3477;",  CHARCODE: "1405", },
-	1406 : { NAME: "AUYANNA",  UNICODE: "\u0D96",  HTMLCODE: "&#3478;",  CHARCODE: "1406", }
+	1406 : { NAME: "AUYANNA",  UNICODE: "\u0D96",  HTMLCODE: "&#3478;",  CHARCODE: "1406", },
+	1407 : { NAME: "UUYANNA",  UNICODE: "\u0D8C",  HTMLCODE: "&#3468;",  CHARCODE: "1407", },
+	1408 : { NAME: "SANYAKA JAYANNA",  UNICODE: "\u0DA6",  HTMLCODE: "&#3494;",  CHARCODE: "1408", }
 	};
 
 
@@ -87,21 +89,11 @@ var charMap = {
 
 
 
-$("#mainTextArea").focus(function() {
+$("#mainTextArea").focus( function() {
 	$("#header").html("");
 	$("#header").removeClass("headerDiv");
 	$("#mainDiv").css({ top: '0px' });
 });
-
-
-
-
-
-//$("#mainTextArea").focusout(function() {
-//	$("#header").html("Sinhala Text Editor");
-//	$("#header").addClass("headerDiv");
-//	$("#mainDiv").css({ top: '40px' });
-//});
 
 
 

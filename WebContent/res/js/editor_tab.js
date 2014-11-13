@@ -87,6 +87,16 @@ var charMap = {
 
 
 
+$("#mainTextArea").focus( function() {
+	$("#header").html("");
+	$("#header").removeClass("headerDiv");
+	$("#mainDiv").css({ top: '0px' });
+});
+
+
+
+
+
 $("#mainTextArea").bind("keypress", function(event) {
 	
 	var keyInput = event.which;
