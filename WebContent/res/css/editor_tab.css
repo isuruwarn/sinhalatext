@@ -14,11 +14,11 @@ body {
 
 
 
-div#header {
+.headerDiv {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 750px;
+	width: 100%;
 	height: 25px;
 	padding: 5px;
 	font-family: "Helvetica Neue" ,"Verdana";
@@ -62,7 +62,7 @@ div#mainDiv {
 div#toolbarsDiv {
 	position: absolute;
 	top: 550px;
-	left: 0px;
+	left: 150px;
 	width: 750px;
 	padding: 0px;
 	background-color: #FFFFFF;
@@ -98,7 +98,7 @@ div#textAreaDiv {
 	height: 100%;
 	color: #202955;
 	padding: 1px;
-	border-spacing: 2px;
+	border-spacing: 3px;
 	border: 1px solid #FFFFFF;
 }
 
@@ -141,7 +141,7 @@ div#textAreaDiv {
 	font-family: "Helvetica Neue" ,"Verdana";
 	text-align:center;
 	border:1px solid #D4D4D4;
-	border-radius:3px;
+	border-radius: 3px;
 	padding: 2px;
 	background: -webkit-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Safari 5.1 to 6.0 */
 	background: -o-linear-gradient(bottom right, #D4D4D4, #FAFAFA); /* For Opera 11.1 to 12.0 */
@@ -224,6 +224,53 @@ div#helpToolbarDiv {
 	padding: 0px;
 	background-color: #FFFFFF;
 	border: 1px solid #FFFFFF;
+}
+
+
+
+
+.suggestionsHolder {
+	position: absolute;
+	top: 0px;
+	left: 475px;
+	width: 190px;
+	height: 300px;
+	padding: 10px;
+	border: 1px solid #FFFFFF;
+}
+
+
+
+.suggestionsTable {
+	width: 170px;
+	font-size: 12px;
+	font-family: "Helvetica Neue" ,"Verdana";
+	color: #202955;
+	padding: 2px;
+	border-spacing: 2px;
+}
+
+
+
+.delSuggestion {
+	position: relative;
+	left: -10;
+	top: -10px;
+	width: 5px;
+	height: 5px;
+	font-size: 10px;
+	font-weight: 900;
+	border: 1px solid #D4D4D4;
+	border-radius: 20px;
+	background-color: #FAFAFA;
+}
+
+
+
+.delSuggestion:hover {
+	border: 1px solid #81BEF7;
+	cursor: pointer;
+	background-color: #EFF5FB;
 }
 
 

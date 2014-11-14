@@ -12,27 +12,33 @@
 	
 	<body>
 	
-		<div id="header" align=center>Sinhala Text Editor</div>
+		<div id="header" align=left class="headerDiv">Sinhala Text Editor</div>
 		
 		<div id="mainDiv">
 			
-			<div id="toolbarsDiv" align=center>
+
+			
+			<div id="textAreaDiv" align=left>
+				<textarea id="mainTextArea" rows="15" cols="60" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
+			</div>
+			
+			<script src="res/js/util.js"></script>
+			<script src="res/js/editor_tab.js"></script>
+			<script src="res/js/suggestions.js"></script>
+			
+			<div id="keyMapDiv" align=left class="keyMapTableDiv">
+				<script>
+					createSinhalaButtons();
+				</script>
+			</div>
+			
+			<div id="toolbarsDiv">
 				<input type=button onclick="selectAll()" class="buttonText" value="Select All" >
 				<input type=button onclick="clearAll()" class="buttonText" value="Clear">
 				<input type=button onclick="help()" class="buttonText" value="Help">
 			</div>
 			
-			<div id="textAreaDiv" align=center>
-				<textarea id="mainTextArea" rows="15" cols="60" class="mainTextareaSinhala" placeholder="&#3517;&#3538;&#3514;&#3505;&#3530;&#3505;..."></textarea>
-			</div>
-			
-			<script src="res/js/editor_tab.js"></script>
-			
-			<div id="keyMapDiv" align=center class="keyMapTableDiv center">
-				<script>
-					createSinhalaButtons();
-				</script>
-			</div>
+			<div id="suggestionsHolder" class="suggestionsHolder" align=right></div>
 			
 		</div>
 		
