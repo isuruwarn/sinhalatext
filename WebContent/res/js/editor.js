@@ -359,6 +359,7 @@ function updateSuggestions( text, selectionEnd  ) {
 	var minimumLength = 3;
 	var suggestions = 0;
 	var currentWordList = getCurrentWordsList(text);
+	//console.log("updateSuggestions - currentWordList=" + currentWordList );
 	
 	if( currentWordList.length > 0 ) {
 		
@@ -366,12 +367,14 @@ function updateSuggestions( text, selectionEnd  ) {
 		var currentWordLength = 0;
 		
 		//get current word being typed
-		var textSubstring = text.substring( 0, selectionEnd + 1);
+		var textSubstring = text.substring( 0, selectionEnd );
 		textSubstring = replaceSpecialCharsWithSpaces( textSubstring );
+		//console.log("updateSuggestions - textSubstring=" + textSubstring );
 		
 		for( var i = textSubstring.length-1; i >= 0; i-- ) {
 			
 			var currentChar = textSubstring[i];
+			//console.log("updateSuggestions - currentChar=" + currentChar );
 			
 			if( currentChar === ' ' ) {
 				currentWord = textSubstring.substring( i+1, textSubstring.length );
@@ -386,6 +389,8 @@ function updateSuggestions( text, selectionEnd  ) {
 		}
 		
 		if( currentWordLength > 0 ) {
+			
+			//console.log("updateSuggestions - currentWord=" + currentWord );
 		
 			// get list of known words
 			if( typeof(Storage) !== "undefined" ) {
@@ -443,43 +448,29 @@ function getCurrentWordsList( text ) {
 
 
 function replaceSpecialCharsWithSpaces( text ) {
-	text = text.replace( /[A-Za-z]/g, "" );
-	text = text.replace( "`", "" );
-	text = text.replace( "~", "" );
-	text = text.replace( "@", "" );
-	text = text.replace( "^", "" );
-	text = text.replace( "_", "" );
-	text = text.replace( "[", "" );
-	text = text.replace( "{", "" );
-	text = text.replace( "]", "" );
-	text = text.replace( "}", "" );
-	text = text.replace( "\\", "" );
-	text = text.replace( "|", "" );
-	text = text.replace( "<", "" );
-	text = text.replace( ">", "" );
-	text = text.replace(/(\r\n|\n|\r)/g, ' ');
-	text = text.replace(/[0-9]/g, ' ');
-	text = text.replace(/\./g, ' ');
-	text = text.replace(/,/g, ' ');
-	text = text.replace(/\(/g, ' ');
-	text = text.replace(/\)/g, ' ');
-	text = text.replace(/:/g, ' ');
-	text = text.replace(/;/g, ' ');
-	text = text.replace(/[\[\]']+/g, ' ');
-	text = text.replace(/{/g, ' ');
-	text = text.replace(/}/g, ' ');
-	text = text.replace(/!/g, ' ');
-	text = text.replace(/#/g, ' ');
-	text = text.replace(/\$/g, ' ');
-	text = text.replace(/&/g, ' ');
-	text = text.replace(/\*/g, ' ');
-	text = text.replace(/=/g, ' ');
-	text = text.replace(/\+/g, ' ');
-	text = text.replace(/-/g, ' ');
-	text = text.replace(/"/g, ' ');
-	text = text.replace(/'/g, ' ');		
-	text = text.replace(/\?/g, ' ');
-	text = text.replace(/\//g, ' ');
+	text = text.replace(/(\r\n|\n|\r)/g, " ");
+	text = text.replace(/[0-9]/g, " ");
+	text = text.replace(/\./g, " ");
+	text = text.replace(/,/g, " ");
+	text = text.replace(/\(/g, " ");
+	text = text.replace(/\)/g, " ");
+	text = text.replace(/:/g, " ");
+	text = text.replace(/;/g, " ");
+	text = text.replace(/[\[\]"]+/g, " ");
+	text = text.replace(/{/g, " ");
+	text = text.replace(/}/g, " ");
+	text = text.replace(/!/g, " ");
+	text = text.replace(/#/g, " ");
+	text = text.replace(/\$/g, " ");
+	text = text.replace(/&/g, " ");
+	text = text.replace(/\*/g, " ");
+	text = text.replace(/=/g, " ");
+	text = text.replace(/\+/g, " ");
+	text = text.replace(/-/g, " ");
+	text = text.replace(/"/g, " ");
+	text = text.replace(/"/g, " ");
+	text = text.replace(/\?/g, " ");
+	text = text.replace(/\//g, " ");
 	return text;
 }
 
