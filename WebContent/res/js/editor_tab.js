@@ -98,6 +98,8 @@ $("#mainTextArea").focus( function() {
 
 
 $("#mainTextArea").bind("keypress", function(event) {
+//$(document).on('keypress','#mainTextArea', function() {
+//$(document).delegate('#mainTextArea', 'keypress', function() {
 	
 	var keyInput = event.which;
 	//console.log("handleKeyInput - keyInput=" + keyInput );
