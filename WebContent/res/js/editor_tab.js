@@ -7,22 +7,27 @@ $("#mainTextArea").focus( function() {
 });
 
 
-
-
-$("#mainTextArea").bind("keypress", function(event) { // no response
+alert('10');
+// click mousedown mouseup focus blur keydown change mouseup click dblclick mousemove mouseover mouseout mousewheel keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize scroll zoom focus blur select change submit reset
+//$("#mainTextArea").bind("keypress", function(event) { // no response
 //$("#mainTextArea").on('keypress', function(event) { // no response
-//$("body").delegate('textarea', 'keypress', function() { // no response
-//$("#mainTextArea").delegate('textarea', 'keypress', function() { // no response
-//$(document).delegate('#mainTextArea', 'keypress', function() { // no response
+//$("body").delegate('textarea', 'keypress', function(event) { // no response
+//$("#mainTextArea").delegate('textarea', 'keypress', function(event) { // no response
+//$(document).delegate('#mainTextArea', 'keypress', function(event) { // no response
 //$("#mainTextArea").keypress(  function(event) { // no response
 //$('#mainTextArea').bind('input keypress', function(event) { // no key values
 //$(document).bind('click', function(event) { // does not show keyboard
 //$(document).bind('keypress', function(event) { // no response
 //$(document).on('keypress', function(event) { // no response
-
+$("#mainTextArea").on("click mousedown mouseup focus blur keydown change mouseup click dblclick mousemove mouseover mouseout mousewheel keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize scroll zoom focus blur select change submit reset", function(event) { // no response
 	
 	//alert('event=' + Object.getOwnPropertyNames(event) );
 
+	alert("eventType=" + event.type + ", originalEvent=" + event.originalEvent + 
+			", which=" + event.which + ", keyCode=" + event.keyCode + 
+			", key=" + event.key + ", charCode=" + event.charCode +
+			", char=" + event.char + ", target=" + event.target );
+	
 	var keyInput = event.which;
 	var metaKey = event.metaKey; // for mac command key
 	var controlKey = event.ctrlKey;
