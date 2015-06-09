@@ -7,7 +7,7 @@ $("#mainTextArea").focus( function() {
 });
 
 
-alert('10');
+
 // click mousedown mouseup focus blur keydown change mouseup click dblclick mousemove mouseover mouseout mousewheel keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize scroll zoom focus blur select change submit reset
 //$("#mainTextArea").bind("keypress", function(event) { // no response
 //$("#mainTextArea").on('keypress', function(event) { // no response
@@ -19,35 +19,47 @@ alert('10');
 //$(document).bind('click', function(event) { // does not show keyboard
 //$(document).bind('keypress', function(event) { // no response
 //$(document).on('keypress', function(event) { // no response
-$("#mainTextArea").on("click mousedown mouseup focus blur keydown change mouseup click dblclick mousemove mouseover mouseout mousewheel keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize scroll zoom focus blur select change submit reset", function(event) { // no response
-	
-	//alert('event=' + Object.getOwnPropertyNames(event) );
 
-	alert("eventType=" + event.type + ", originalEvent=" + event.originalEvent + 
-			", which=" + event.which + ", keyCode=" + event.keyCode + 
-			", key=" + event.key + ", charCode=" + event.charCode +
-			", char=" + event.char + ", target=" + event.target );
-	
-	var keyInput = event.which;
-	var metaKey = event.metaKey; // for mac command key
-	var controlKey = event.ctrlKey;
-	//console.log("handleKeyInput - keyInput=" + keyInput );
-	
-	if( keyInput === undefined ) {
-		keyInput = event.keyCode;
+// event.which and event.keyCode return 229
+//$(document).bind("click focus blur change dblclick keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize zoom select submit reset", function(event) {
+
+
+$("#mainTextArea").on("keydown keyup keypress textInput", function(event) {
+
+	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
+	/*
+	var debugMsg = 	"type=" + event.type + ", originalEvent=" + JSON.stringify( event.originalEvent ) + 
+					", target=" + JSON.stringify( event.target ) + ", which=" + event.which + ", keyCode=" + event.keyCode + 
+					", key=" + event.key + ", charCode=" + event.charCode +	", char=" + event.char + "<br><br>";
+	if( $("#debugAreaDiv").text().length > 1000 ) {
+		$("#debugAreaDiv").html("");
 	}
+	$("#debugAreaDiv").html( debugMsg + $("#debugAreaDiv").html() + "<br><br>" );
+	*/
+	//console.log("handleKeyInput - debugMsg=" + debugMsg );
 	
-	if( keyInput == 32 || keyInput == 13 ) {
-		updateAllWordsList( this );
-		$("#suggestionsHolder").html("");
+	if( event.type === "keypress" ) {
 		
-	} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
-		return;
+		var keyInput = event.which;
+		var metaKey = event.metaKey; // for mac command key
+		var controlKey = event.ctrlKey;
+		//console.log("handleKeyInput - keyInput=" + keyInput );
 		
-	} else {
-		// prevent english characters from being typed
-		event.preventDefault();
-		updateText( this, keyInput );
+		var elTextArea = document.getElementById("mainTextArea");
+		
+		if( keyInput == 32 || keyInput == 13 ) {
+			updateAllWordsList( elTextArea );
+			$("#suggestionsHolder").html("");
+			
+		} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
+			return;
+			
+		} else {
+			// prevent english characters from being typed
+			event.preventDefault();
+			updateText( elTextArea, keyInput );
+		}
+		
 	}
 	
 });

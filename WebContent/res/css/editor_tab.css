@@ -274,4 +274,12 @@ div#helpToolbarDiv {
 }
 
 
+div#debugAreaDiv {
+	top: 260px;
+	height: 300px;
+	width: 65%;
+	position: absolute;
+}
+
+
 
