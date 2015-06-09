@@ -9,15 +9,28 @@ $("#mainTextArea").focus( function() {
 
 
 
-$("#mainTextArea").bind("keypress", function(event) {
-//$(document).on('keypress','#mainTextArea', function() {
-//$(document).delegate('#mainTextArea', 'keypress', function() {
+$("#mainTextArea").bind("keypress", function(event) { // no response
+//$("#mainTextArea").on('keypress', function(event) { // no response
+//$("body").delegate('textarea', 'keypress', function() { // no response
+//$("#mainTextArea").delegate('textarea', 'keypress', function() { // no response
+//$(document).delegate('#mainTextArea', 'keypress', function() { // no response
+//$("#mainTextArea").keypress(  function(event) { // no response
+//$('#mainTextArea').bind('input keypress', function(event) { // no key values
+//$(document).bind('click', function(event) { // does not show keyboard
+//$(document).bind('keypress', function(event) { // no response
+//$(document).on('keypress', function(event) { // no response
+
 	
+	//alert('event=' + Object.getOwnPropertyNames(event) );
+
 	var keyInput = event.which;
-	//console.log("handleKeyInput - keyInput=" + keyInput );
-	
 	var metaKey = event.metaKey; // for mac command key
 	var controlKey = event.ctrlKey;
+	//console.log("handleKeyInput - keyInput=" + keyInput );
+	
+	if( keyInput === undefined ) {
+		keyInput = event.keyCode;
+	}
 	
 	if( keyInput == 32 || keyInput == 13 ) {
 		updateAllWordsList( this );
@@ -33,7 +46,6 @@ $("#mainTextArea").bind("keypress", function(event) {
 	}
 	
 });
-
 
 
 
