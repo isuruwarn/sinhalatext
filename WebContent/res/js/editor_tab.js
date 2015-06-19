@@ -8,61 +8,61 @@ $("#mainTextArea").focus( function() {
 
 
 
-// click mousedown mouseup focus blur keydown change mouseup click dblclick mousemove mouseover mouseout mousewheel keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize scroll zoom focus blur select change submit reset
-//$("#mainTextArea").bind("keypress", function(event) { // no response
-//$("#mainTextArea").on('keypress', function(event) { // no response
-//$("body").delegate('textarea', 'keypress', function(event) { // no response
-//$("#mainTextArea").delegate('textarea', 'keypress', function(event) { // no response
-//$(document).delegate('#mainTextArea', 'keypress', function(event) { // no response
-//$("#mainTextArea").keypress(  function(event) { // no response
-//$('#mainTextArea').bind('input keypress', function(event) { // no key values
-//$(document).bind('click', function(event) { // does not show keyboard
-//$(document).bind('keypress', function(event) { // no response
-//$(document).on('keypress', function(event) { // no response
 
-// event.which and event.keyCode return 229
-//$(document).bind("click focus blur change dblclick keydown keyup keypress textInput touchstart touchmove touchend touchcancel resize zoom select submit reset", function(event) {
-
-
-$("#mainTextArea").on("keydown keyup keypress textInput", function(event) {
-
-	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
-	/*
-	var debugMsg = 	"type=" + event.type + ", originalEvent=" + JSON.stringify( event.originalEvent ) + 
-					", target=" + JSON.stringify( event.target ) + ", which=" + event.which + ", keyCode=" + event.keyCode + 
-					", key=" + event.key + ", charCode=" + event.charCode +	", char=" + event.char + "<br><br>";
-	if( $("#debugAreaDiv").text().length > 1000 ) {
-		$("#debugAreaDiv").html("");
-	}
-	$("#debugAreaDiv").html( debugMsg + $("#debugAreaDiv").html() + "<br><br>" );
-	*/
-	//console.log("handleKeyInput - debugMsg=" + debugMsg );
+//$("#mainTextArea").bind("keypress", function(event) {
+$('#mainTextArea').bind('input keypress', function(event) {
 	
-	if( event.type === "keypress" ) {
+	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
+	var debugMsg = 'event.which=' + event.which;
+	//console.log("handleKeyInput - debugMsg=" + debugMsg );
+	$("#debugAreaDiv").html( debugMsg );
+	
+	var keyInput = event.which;
+	var metaKey = event.metaKey; // for mac command key
+	var controlKey = event.ctrlKey;
+	//console.log("handleKeyInput - keyInput=" + keyInput );
+	
+	var elTextArea = document.getElementById("mainTextArea");
+	
+	if( keyInput == 32 || keyInput == 13 ) {
+		updateAllWordsList( elTextArea );
+		$("#suggestionsHolder").html("");
 		
-		var keyInput = event.which;
-		var metaKey = event.metaKey; // for mac command key
-		var controlKey = event.ctrlKey;
-		//console.log("handleKeyInput - keyInput=" + keyInput );
+	} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
+		return;
 		
-		var elTextArea = document.getElementById("mainTextArea");
-		
-		if( keyInput == 32 || keyInput == 13 ) {
-			updateAllWordsList( elTextArea );
-			$("#suggestionsHolder").html("");
-			
-		} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
-			return;
-			
-		} else {
-			// prevent english characters from being typed
-			event.preventDefault();
-			updateText( elTextArea, keyInput );
-		}
-		
+	} else {
+		// prevent english characters from being typed
+		event.preventDefault();
+		updateText( elTextArea, keyInput );
 	}
 	
 });
+
+
+$('#mainTextArea').bind('input keydown', function(event) {
+	
+	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
+	var debugMsg = 'event.which=' + event.which;
+	//console.log("handleKeyInput - debugMsg=" + debugMsg );
+	$("#debugAreaDiv").html( debugMsg );	
+	
+	event.preventDefault();
+	
+	var key = event.which;
+    if(document.createEventObject) {
+        var eventObj = document.createEventObject();
+        eventObj.keyCode = key;
+        this.fireEvent("onkeydown", eventObj);   
+    } else if(document.createEvent) {
+        var eventObj = document.createEvent("Events");
+        eventObj.initEvent("keydown", true, true);
+        eventObj.which = key;
+        this.dispatchEvent(eventObj);
+    }
+	
+});
+
 
 
 
