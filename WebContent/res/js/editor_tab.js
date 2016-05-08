@@ -8,14 +8,19 @@ $("#mainTextArea").focus( function() {
 
 
 
+//if( navigator.appVersion.indexOf('Android') !== -1 ) { // for stupid android virtual keyboard issue
 
-//$("#mainTextArea").bind("keypress", function(event) {
-$('#mainTextArea').bind('input keypress', function(event) {
-	
-	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
-	var debugMsg = 'event.which=' + event.which;
-	//console.log("handleKeyInput - debugMsg=" + debugMsg );
-	$("#debugAreaDiv").html( debugMsg );
+	$("#mainTextArea").bind("keydown", function(event) {
+		bindKeyEventAndroid(event);
+	});
+//} else {
+//	$("#mainTextArea").bind("keypress", function(event) {
+//		bindKeyEvent(event);
+//	});
+//}
+
+
+function bindKeyEvent(event) {
 	
 	var keyInput = event.which;
 	var metaKey = event.metaKey; // for mac command key
@@ -36,33 +41,72 @@ $('#mainTextArea').bind('input keypress', function(event) {
 		event.preventDefault();
 		updateText( elTextArea, keyInput );
 	}
-	
-});
+}
 
 
-$('#mainTextArea').bind('input keydown', function(event) {
+
+function bindKeyEventAndroid(event) {
 	
 	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
-	var debugMsg = 'event.which=' + event.which;
-	//console.log("handleKeyInput - debugMsg=" + debugMsg );
-	$("#debugAreaDiv").html( debugMsg );	
+	//var debugMsg = 'event.which=' + event.which + ", event.type=" + event.type;
+	var debugMsg = "";
 	
-	event.preventDefault();
+	/*Object.keys(event).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	*/
 	
-	var key = event.which;
-    if(document.createEventObject) {
-        var eventObj = document.createEventObject();
-        eventObj.keyCode = key;
-        this.fireEvent("onkeydown", eventObj);   
-    } else if(document.createEvent) {
-        var eventObj = document.createEvent("Events");
-        eventObj.initEvent("keydown", true, true);
-        eventObj.which = key;
-        this.dispatchEvent(eventObj);
-    }
+	debugMsg += "<br>***originalEvent***<br>";
+	Object.keys(event.originalEvent).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	debugMsg += "<br>***view***<br>";
+	Object.keys(event.view).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	debugMsg += "<br>***target***<br>";
+	Object.keys(event.target).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	debugMsg += "<br>***currentTarget***<br>";
+	Object.keys(event.currentTarget).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	debugMsg += "<br>***delegateTarget***<br>";
+	Object.keys(event.delegateTarget).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
+	debugMsg += "<br>***handleObj***<br>";
+	Object.keys(event.handleObj).forEach( function(key) {
+		debugMsg += key + "= " + event[key] + "<br>";
+	});
 	
-});
-
+	
+	$("#debugAreaDiv").html( debugMsg );
+	
+	/*var elTextArea = document.getElementById("mainTextArea");
+	var startPos = elTextArea.selectionStart;
+	var inputChar = elTextArea.value.charAt(startPos-1);
+	var keyInput = elTextArea.value.charCodeAt(startPos-1);
+	var metaKey = event.metaKey; // for mac command key
+	var controlKey = event.ctrlKey;
+	
+	console.log("handleKeyInput -  inputChar=" + inputChar + ", keyInput=" + keyInput );
+	
+	if( keyInput == 32 || keyInput == 13 ) {
+		updateAllWordsList( elTextArea );
+		$("#suggestionsHolder").html("");
+		
+	} else if( keyInput < 60 || keyInput == 61 || keyInput == 63 || controlKey || metaKey ) {
+		return;
+		
+	} else {
+		// prevent english characters from being typed
+		//event.preventDefault();
+		updateText( elTextArea, keyInput );
+	}
+	*/
+}
 
 
 
@@ -104,6 +148,12 @@ function updateText( elTextArea, keyInput ) {
 		updateSuggestions( elTextArea.value, elTextArea.selectionEnd );
 		updateTextInLocalStorage( elTextArea.value );
 	}
+	
+}
+
+
+
+function updateTextForAndroid( elTextArea, keyInput ) {
 	
 }
 
