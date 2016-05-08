@@ -8,16 +8,19 @@ $("#mainTextArea").focus( function() {
 
 
 
-//if( navigator.appVersion.indexOf('Android') !== -1 ) { // for stupid android virtual keyboard issue
+//document.getElementById('mainTextArea').onkeydown = function(event) {
+//	bindKeyEventAndroid(event);
+//};
 
-	$("#mainTextArea").bind("keydown", function(event) {
-		bindKeyEventAndroid(event);
-	});
-//} else {
-//	$("#mainTextArea").bind("keypress", function(event) {
-//		bindKeyEvent(event);
-//	});
-//}
+//$("#mainTextArea").bind("keydown", function(event) {
+//	bindKeyEventAndroid(event);
+//});
+
+$("#mainTextArea").bind("keypress", function(event) {
+	//bindKeyEvent(event);
+	bindKeyEventAndroid(event);
+});
+
 
 
 function bindKeyEvent(event) {
@@ -47,51 +50,15 @@ function bindKeyEvent(event) {
 
 function bindKeyEventAndroid(event) {
 	
-	//var debugMsg = 'event=' + Object.getOwnPropertyNames(event);
-	//var debugMsg = 'event.which=' + event.which + ", event.type=" + event.type;
-	var debugMsg = "";
-	
-	/*Object.keys(event).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	*/
-	
-	debugMsg += "<br>***originalEvent***<br>";
-	Object.keys(event.originalEvent).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	debugMsg += "<br>***view***<br>";
-	Object.keys(event.view).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	debugMsg += "<br>***target***<br>";
-	Object.keys(event.target).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	debugMsg += "<br>***currentTarget***<br>";
-	Object.keys(event.currentTarget).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	debugMsg += "<br>***delegateTarget***<br>";
-	Object.keys(event.delegateTarget).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	debugMsg += "<br>***handleObj***<br>";
-	Object.keys(event.handleObj).forEach( function(key) {
-		debugMsg += key + "= " + event[key] + "<br>";
-	});
-	
-	
-	$("#debugAreaDiv").html( debugMsg );
-	
-	/*var elTextArea = document.getElementById("mainTextArea");
-	var startPos = elTextArea.selectionStart;
-	var inputChar = elTextArea.value.charAt(startPos-1);
-	var keyInput = elTextArea.value.charCodeAt(startPos-1);
+	var keyInput = event.which;
 	var metaKey = event.metaKey; // for mac command key
 	var controlKey = event.ctrlKey;
+	//console.log("handleKeyInput - keyInput=" + keyInput );
 	
-	console.log("handleKeyInput -  inputChar=" + inputChar + ", keyInput=" + keyInput );
+	var debugMsg = 'event.keyCode=' + keyInput;
+	$("#debugAreaDiv").html( debugMsg );
+	
+	var elTextArea = document.getElementById("mainTextArea");
 	
 	if( keyInput == 32 || keyInput == 13 ) {
 		updateAllWordsList( elTextArea );
@@ -102,10 +69,10 @@ function bindKeyEventAndroid(event) {
 		
 	} else {
 		// prevent english characters from being typed
-		//event.preventDefault();
+		event.preventDefault();
 		updateText( elTextArea, keyInput );
 	}
-	*/
+	
 }
 
 
