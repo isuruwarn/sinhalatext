@@ -191,7 +191,7 @@ function createKeyMapTable() {
     	var td9 = $("<td></td>");
     	var td10 = $("<td></td>");
     	var td11 = $("<td></td>");
-	    key = keys[i+45];
+	    key = keys[i+44];
 	    if(key) {
 			symbol = charMap[key];
 		    td9 = $("<td>" + symbol.CHARCODE + "</td>");
